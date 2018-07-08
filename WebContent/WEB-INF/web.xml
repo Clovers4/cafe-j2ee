@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>coffee</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- JSTL -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/c.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+
+	<!-- utf-8编码Filter -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>com.coffee.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>charset</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<!-- NoCacheFilter -->
+	<filter>
+		<filter-name>NoCacheFilter</filter-name>
+		<filter-class>com.coffee.web.filter.NoCacheFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>NoCacheFilter</filter-name>
+		<url-pattern>/*</url-pattern><!-- 因为要经常更换图片，暂且全部不缓存 -->
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+	<!-- TransactionFilter -->
+	<filter>
+		<filter-name>TransactionFilter</filter-name>
+		<filter-class>com.coffee.web.filter.TransactionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>TransactionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+		<!-- TransactionFilter -->
+	<filter>
+		<filter-name>AutoLoginFilter</filter-name>
+		<filter-class>com.coffee.web.filter.AutoLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AutoLoginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+</web-app>
