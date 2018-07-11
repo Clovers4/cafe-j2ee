@@ -99,5 +99,18 @@ public class WebUtils {
 		byte[] input = str.getBytes();
 		return bytesToMD5(input);
 	}
+	
+	/**
+	 * 用于从request中提取原来的地址(即请求方的地址)，以重定向回去.
+	 * 获得项目名后面的相对路径，如http://localhost:8080/coffee/index.jsp，则获得index.jsp
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String getOrgServletPath(HttpServletRequest request) {
+		String url = request.getHeader("Referer");
+		int beginIndex = url.lastIndexOf(request.getContextPath())+request.getContextPath().length();
+		return url.substring(beginIndex);
+	}
 
 }

@@ -50,12 +50,10 @@ public class ModifyInfoServlet extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 
 		} catch (Exception e) {
-			e.printStackTrace(); // 在后台记录异常
 			request.setAttribute("message", "对不起，修改失败！！");
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	@Override

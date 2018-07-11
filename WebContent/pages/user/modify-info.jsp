@@ -87,8 +87,8 @@
 								<div class="input-group">
 									<span class="input-group-addon"><span
 										class="glyphicon glyphicon-user"></span></span> <input id="account"
-										name="account" class="form-control" disabled="" type="text"
-										value="${sessionScope.user.account}">
+										name="account" class="form-control" readonly="readonly"
+										type="text" value="${sessionScope.user.account}">
 								</div>
 							</div>
 
@@ -134,8 +134,8 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- 修改成功弹框 -->
 	<div id="modify-info-success" class="modal fade">
 		<div class="modal-dialog">
@@ -162,8 +162,8 @@
 			</div>
 		</div>
 	</div>
-	
-		<!-- 修改成功后提示 -->
+
+	<!-- 修改成功后提示 -->
 	<c:if test="${not empty requestScope.modifyInfoSuccess}">
 		<script>
 			$('#modify-info-success').modal("show");

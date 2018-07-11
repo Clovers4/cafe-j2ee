@@ -28,8 +28,10 @@ import com.coffee.web.formbean.*;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = "/servlet/registerServlet")
 public class RegisterServlet extends HttpServlet {
+	private IUserService userService = new UserServiceImpl();
+
 	/**
-	 * 初始化连接池
+	 * 初始化连接池，初始化的位置有点问题，似乎是电脑重启之后就需要重新初始化连接池，而之后即使修改代码，也不会影响
 	 */
 	@Override
 	public void init() throws ServletException {
@@ -49,6 +51,11 @@ public class RegisterServlet extends HttpServlet {
 		// 将客户端提交的表单数据封装到RegisterFormBean对象中
 		RegisterFormBean formBean = WebUtils.requestToBean(request, RegisterFormBean.class);
 		System.out.println(formBean);
+		String orgUrl = WebUtils.getOrgServletPath(request);
+		if (orgUrl.equals("/servlet/registerServlet")) {
+			orgUrl = "/index.jsp";
+		}
+		System.out.println("OrgURL: " + orgUrl);
 
 		// 校验用户注册填写的表单数据
 		if (formBean.validate() == false) {// 如果校验失败
@@ -56,9 +63,8 @@ public class RegisterServlet extends HttpServlet {
 			request.setAttribute("registerFormBean", formBean);
 			// 校验失败就说明是用户填写的表单数据有问题，那么就跳转刚才的页面
 
-			System.out.println("URL: " + request.getParameter("url"));
 			request.setAttribute("registerError", "未全部填写/填写内容不符合要求！！");
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + orgUrl);
 			return;
 		}
 
@@ -69,26 +75,21 @@ public class RegisterServlet extends HttpServlet {
 			BeanUtils.copyProperties(user, formBean);
 			System.out.println(user);
 
-			// 调用service层提供的注册用户服务实现用户注册
-			IUserService service = new UserServiceImpl();
-			service.register(user);
+			userService.register(user);
 
 			request.setAttribute("registerSuccess", "注册成功！！");
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			request.getRequestDispatcher(orgUrl).forward(request, response);
 
 		} catch (UserExistException e) {
 			request.setAttribute("registerError", "用户名重复,请更换一个用户名！！");
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			request.getRequestDispatcher(orgUrl).forward(request, response);
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace(); // 在后台记录异常
 			request.setAttribute("message", "对不起，注册失败！！");
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			throw new RuntimeException(e);
 		}
 	}
-	
-	
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

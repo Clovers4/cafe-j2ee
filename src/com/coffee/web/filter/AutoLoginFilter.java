@@ -17,6 +17,7 @@ import com.coffee.util.WebUtils;
 @WebFilter(filterName = "AutoLoginFilter", urlPatterns = "/*", dispatcherTypes = { DispatcherType.REQUEST,
 		DispatcherType.FORWARD })
 		*/
+
 public class AutoLoginFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)

@@ -15,11 +15,10 @@
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<c:if test="${empty sessionScope.user and empty sessionScope.admin}">
-	<link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath}/css/CAPTCHA.css">
-	<script src="${pageContext.request.contextPath}/js/verify.js"></script>
-</c:if>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/CAPTCHA.css">
+<script src="${pageContext.request.contextPath}/js/verify.js"></script>
+
 
 <style>
 body {
@@ -59,6 +58,8 @@ body {
 						class="glyphicon glyphicon-th-list"></span> 菜单 <b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
+						<li><a href="#">全部</a></li>
+						<li class="divider"></li>
 						<li><a href="#">饮料</a></li>
 						<li class="divider"></li>
 						<li><a href="#">小吃</a></li>
@@ -100,11 +101,13 @@ body {
 						class="glyphicon glyphicon-shopping-cart"></span> 购物车</a></li>
 				<li><c:if test="${not empty sessionScope.user}">
 						<a
-							href="${pageContext.request.contextPath}/pages/user/modify-info.jsp">
+							href="${pageContext.request.contextPath}/pages/user/modify-info.jsp"><span
+							class="glyphicon glyphicon-user"></span> 个人中心</a>
 					</c:if> <c:if test="${not empty sessionScope.admin}">
 						<a
-							href="${pageContext.request.contextPath}/pages/admin/manage-users.jsp">
-					</c:if> <span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+							href="${pageContext.request.contextPath}/pages/admin/manage-users.jsp"><span
+							class="glyphicon glyphicon-user"></span> 管理中心</a>
+					</c:if></li>
 				<li><button type="submit" class="btn btn-danger navbar-btn"
 						onclick="window.location.href='${pageContext.request.contextPath}/servlet/logoutServlet'">
 						<span class="glyphicon glyphicon-log-out"></span> 退出
@@ -241,15 +244,13 @@ body {
 							</div>
 						</div>
 
-						<input type="hidden" name="url"
-							value="${pageContext.request.requestURL}" />
-
 						<div class="text-right">
 							<span class="text-danger">${requestScope.registerError}</span>
 							<button class="btn btn-primary" type="submit">提&nbsp;&nbsp;交</button>
 							<button class="btn btn btn-warning orm-control" type="reset">重&nbsp;&nbsp;置</button>
 							<button class="btn btn-danger" data-dismiss="modal">取&nbsp;&nbsp;消</button>
 						</div>
+						<input type="hidden" name="orgUrl" value="${pageContext.request.requestURL}" />
 
 						<a href="" data-toggle="modal" data-dismiss="modal"
 							data-target="#login">已有账号？点我登录</a>

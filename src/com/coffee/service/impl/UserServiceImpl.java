@@ -1,9 +1,12 @@
 package com.coffee.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.coffee.dao.IUserDao;
 import com.coffee.dao.impl.UserDaoImpl;
+import com.coffee.domain.Page;
 import com.coffee.domain.User;
 import com.coffee.exception.UserExistException;
 import com.coffee.service.IUserService;
@@ -40,6 +43,37 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void update(User user) throws SQLException {
 		userDao.update(user);
+	}
+
+	@Override
+	public void delete(String account) throws SQLException {
+		userDao.delete(account);
+	}
+
+	@Override
+	public List<User> getAll() throws SQLException {
+		List<User> users = (ArrayList<User>) userDao.findALL();
+		return users;
+	}
+
+	@Override
+	public Page<User> get(int begin, int pageSize) throws SQLException {
+		List<User> users = (ArrayList<User>) userDao.find(begin, pageSize);
+
+		Page<User> userPage = new Page<>();
+		userPage.setList(users);
+		userPage.setTotalCount(userDao.findALL().size());
+
+		return userPage;
+	}
+
+	@Override
+	public boolean checkExist(String account) throws SQLException {
+		if (userDao.find(account) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

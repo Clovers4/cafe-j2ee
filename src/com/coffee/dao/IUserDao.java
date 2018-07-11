@@ -14,10 +14,19 @@ import com.coffee.domain.*;
 public interface IUserDao {
 
 	 /**查找所有用户
-    * @param account
     * @return 所有用户
     */
 	List<User> findALL() throws SQLException;
+	
+	/**
+	 * 分页查找,返回从begin开始到begin+pageSize结束范围内的User
+	 * 
+	 * @param begin
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	List<User> find(int begin, int pageSize) throws SQLException;
 	
 	 /**根据用户名来查找用户
      * @param account
