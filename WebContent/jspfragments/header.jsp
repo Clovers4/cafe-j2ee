@@ -15,9 +15,6 @@
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/CAPTCHA.css">
-<script src="${pageContext.request.contextPath}/js/verify.js"></script>
 
 
 <style>
@@ -29,6 +26,13 @@ body {
 <title>header</title>
 </head>
 <body>
+	<!-- 未登录则引入登录/注册所需的模态框 -->
+	<c:if test="${empty sessionScope.user and empty sessionScope.admin}">
+		<jsp:include page="/jspfragments/login.jsp" />
+		<jsp:include page="/jspfragments/register-user.jsp" />
+	</c:if>
+
+
 	<!-- 页头 -->
 	<!--响应式导航栏-->
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -58,21 +62,24 @@ body {
 						class="glyphicon glyphicon-th-list"></span> 菜单 <b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">全部</a></li>
+						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?">全部</a></li>
 						<li class="divider"></li>
-						<li><a href="#">饮料</a></li>
+						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=饮料">饮料</a></li>
 						<li class="divider"></li>
-						<li><a href="#">小吃</a></li>
+						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=小吃">小吃</a></li>
 						<li class="divider"></li>
-						<li><a href="#">主食</a></li>
+						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=主食">主食</a></li>
 					</ul></li>
 			</ul>
 		</div>
 
 		<!--搜索栏-->
-		<form class="navbar-form navbar-left" role="search">
+		<form class="navbar-form navbar-left"
+			action="${pageContext.request.contextPath}/servlet/searchItemPageServlet?"
+			role="search" method="get">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
+				<input name="nameKeyword" type="text" class="form-control"
+					placeholder="Search">
 			</div>
 			<button type="submit" class="btn btn-primary">搜索</button>
 		</form>
@@ -118,263 +125,5 @@ body {
 	</nav>
 
 
-	<!-- 注册弹框 -->
-	<div id="register" class="modal fade" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-
-				<div class="modal-body">
-					<button class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-
-				<div class="modal-title">
-					<h1 class="text-center">注册</h1>
-				</div>
-
-				<!-- 注册表单 -->
-				<div class="modal-body">
-					<form
-						action="${pageContext.request.contextPath}/servlet/registerServlet"
-						onSubmit="return checkRegister()" method="post">
-
-						<div class="form-group has-feedback" id="register-account-div">
-							<label for="register-account">用户名</label>
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-user"></span></span> <input
-									id="register-account" name="account" class="form-control"
-									placeholder="请输入用户名" maxlength="20" type="text">
-							</div>
-
-							<span style="color: red; display: none;" class="tips"></span> <span
-								style="display: none;"
-								class=" glyphicon glyphicon-remove form-control-feedback"></span>
-							<span style="display: none;"
-								class="glyphicon glyphicon-ok form-control-feedback"></span>
-						</div>
-
-						<div class="form-group has-feedback" id="register-password-div">
-							<label for="register-password">密码</label>
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-lock"></span></span> <input
-									id="register-password" name="password" class="form-control"
-									placeholder="请输入密码" maxlength="20" type="password">
-							</div>
-
-							<span style="color: red; display: none;" class="tips"></span> <span
-								style="display: none;"
-								class="glyphicon glyphicon-remove form-control-feedback"></span>
-							<span style="display: none;"
-								class="glyphicon glyphicon-ok form-control-feedback"></span>
-						</div>
-
-						<div class="form-group has-feedback"
-							id="register-passwordConfirm-div">
-							<label for="register-passwordConfirm">确认密码</label>
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-lock"></span></span> <input
-									id="register-passwordConfirm" name="passwordConfirm"
-									class="form-control" placeholder="请再次输入密码" maxlength="20"
-									type="password">
-							</div>
-							<span style="color: red; display: none;" class="tips"></span> <span
-								style="display: none;"
-								class="glyphicon glyphicon-remove form-control-feedback"></span>
-							<span style="display: none;"
-								class="glyphicon glyphicon-ok form-control-feedback"></span>
-						</div>
-
-
-						<div class="form-group has-feedback" id="register-tel-div">
-							<label for="register-tel">手机号码</label>
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-phone"></span></span> <input
-									id="register-tel" name="tel" class="form-control"
-									placeholder="请输入手机号码" maxlength="11" type="text"
-									value="${sessionScope.user.tel}">
-							</div>
-							<span style="color: red; display: none;" class="tips"></span> <span
-								style="display: none;"
-								class="glyphicon glyphicon-remove form-control-feedback"></span>
-							<span style="display: none;"
-								class="glyphicon glyphicon-ok form-control-feedback"></span>
-						</div>
-
-						<div class="form-group has-feedback" id="register-email-div">
-							<label for="register-email">邮箱</label>
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-envelope"></span></span> <input
-									id="register-email" name="email" class="form-control"
-									type="email" placeholder="例如:123@123.com"
-									value="${sessionScope.user.email}">
-							</div>
-							<span style="color: red; display: none;" class="tips"></span> <span
-								style="display: none;"
-								class="glyphicon glyphicon-remove form-control-feedback"></span>
-							<span style="display: none;"
-								class="glyphicon glyphicon-ok form-control-feedback"></span>
-						</div>
-
-						<div class="row">
-							<div class="col-xs-7">
-								<div class="form-group has-feedback" id="idcode-btn-div">
-									<label for="idcode-btn">验证码</label>
-									<div class="input-group">
-										<span class="input-group-addon"><span
-											class="glyphicon glyphicon-qrcode"></span></span> <input
-											id="idcode-btn" class="form-control" placeholder="请输入验证码"
-											maxlength="4" type="text">
-									</div>
-									<span style="color: red; display: none;" class="tips"></span> <span
-										style="display: none;"
-										class="glyphicon glyphicon-remove form-control-feedback"></span>
-									<span style="display: none;"
-										class="glyphicon glyphicon-ok form-control-feedback"></span>
-								</div>
-							</div>
-							<!-- 验证码背景 -->
-							<div class="col-xs-5" style="padding-top: 30px">
-								<div id="idcode" style="background: transparent;"></div>
-							</div>
-						</div>
-
-						<div class="text-right">
-							<span class="text-danger">${requestScope.registerError}</span>
-							<button class="btn btn-primary" type="submit">提&nbsp;&nbsp;交</button>
-							<button class="btn btn btn-warning orm-control" type="reset">重&nbsp;&nbsp;置</button>
-							<button class="btn btn-danger" data-dismiss="modal">取&nbsp;&nbsp;消</button>
-						</div>
-						<input type="hidden" name="orgUrl" value="${pageContext.request.requestURL}" />
-
-						<a href="" data-toggle="modal" data-dismiss="modal"
-							data-target="#login">已有账号？点我登录</a>
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 注册失败之后返回，重新打开模态框 -->
-	<c:if test="${not empty requestScope.registerError}">
-		<script>
-			$('#register').modal("show");
-		</script>
-	</c:if>
-
-	<!-- 注册成功弹框 -->
-	<div id="register-success" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<button class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-
-				<div class="modal-title">
-					<h1 class="text-center">注册成功</h1>
-				</div>
-
-				<!-- 主体 -->
-				<div class="modal-body">
-					<center>
-						<div class="">
-							<button class="btn btn-primary" type="submit"
-								data-dismiss="modal">确&nbsp;&nbsp;定</button>
-						</div>
-					</center>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 注册成功后提示 -->
-	<c:if test="${not empty requestScope.registerSuccess}">
-		<script>
-			$('#register-success').modal("show");
-		</script>
-	</c:if>
-
-
-	<!-- 登录窗口 -->
-	<div id="login" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<button class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-				<div class="modal-title">
-					<h1 class="text-center">登录</h1>
-				</div>
-
-				<!-- 登录表单 -->
-				<div class="modal-body">
-					<form class="form-group"
-						action="${pageContext.request.contextPath}/servlet/loginServlet"
-						method="post">
-						<div class="form-group has-feedback">
-							<label for="login-account">用户名</label>
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-user"></span></span> <input
-									id="login-account" name="account" class="form-control"
-									placeholder="请输入用户名" maxlength="20" type="text">
-							</div>
-						</div>
-
-						<div class="form-group has-feedback">
-							<label for="login-password">密码</label>
-							<div class="input-group">
-								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-lock"></span></span> <input
-									id="login-password" name="password" class="form-control"
-									placeholder="请输入密码" maxlength="20" type="password">
-							</div>
-						</div>
-
-						<div class="btn-group pull-left" data-toggle="buttons">
-							<label class="btn btn-default active"> <input
-								name="status" value="user" type="radio" checked>用户(默认)
-							</label> <label class="btn btn-default"> <input name="status"
-								value="admin" type="radio"> 管理员
-							</label>
-						</div>
-
-						<div class="text-right">
-							<span class="text-danger">${requestScope.loginError}</span>
-							<!-- 2*24*60*60= 172800-->
-							<input type="checkbox" name="logintime" value="172800">记住密码&nbsp;&nbsp;
-							<button class="btn btn-primary" type="submit">登录</button>
-							<button class="btn btn-danger" data-dismiss="modal">取消</button>
-						</div>
-
-						<br /> <a href="" data-toggle="modal" data-dismiss="modal"
-							data-target="#register">还没有账号？点我注册</a>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 登录失败之后返回，重新打开模态框 -->
-	<c:if test="${not empty requestScope.loginError}">
-		<script>
-			$('#login').modal("show");
-		</script>
-	</c:if>
-
-
 </body>
-
-
-
 </html>

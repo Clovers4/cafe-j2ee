@@ -40,6 +40,13 @@ public class ItemServiceImpl implements IItemService {
 		List<Item> list = (ArrayList<Item>) itemDao.findAll();
 		return list;
 	}
+	
+
+	@Override
+	public Item get(int itemId) throws SQLException {
+		return itemDao.find(itemId);
+	}
+
 
 	@Override
 	public Page<Item> get(int begin, int pageSize) throws SQLException {
@@ -50,6 +57,35 @@ public class ItemServiceImpl implements IItemService {
 		itemPage.setTotalCount(itemDao.findAll().size());
 
 		return itemPage;
+	}
+
+	@Override
+	public Page<Item> get(Item item, int begin, int pageSize) throws SQLException {
+		List<Item> list = (ArrayList<Item>) itemDao.find(item, begin, pageSize);
+
+		Page<Item> itemPage = new Page<>();
+		itemPage.setList(list);
+		itemPage.setTotalCount(itemDao.find(item).size());
+
+		return itemPage;
+	}
+
+	@Override
+	public boolean checkExist(String itemId) throws SQLException {
+		if (itemDao.find(itemId) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public void update(int itemId, String imageUrl) throws SQLException {
+		Item item = itemDao.find(itemId);
+		if (item != null) {
+			item.setImageUrl(imageUrl);
+			itemDao.update(item);
+		}
 	}
 
 }

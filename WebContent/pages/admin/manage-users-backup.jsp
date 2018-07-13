@@ -22,11 +22,6 @@
 <!-- 之前用来做无分页的用户管理，已弃用 -->
 </head>
 <body>
-	<!-- 未登录无法进入 -->
-	<c:if test="${empty sessionScope.admin}">
-		<jsp:forward page="/index.jsp"></jsp:forward>
-	</c:if>
-
 	<!-- 若之前没有拿到所有users，就请求去得到 -->
 	<!-- 这里未做与数据库一直同步，需要注意————也就是说，用户注册时，管理员处的信息可能得不到更新 -->
 	<c:if test="${sessionScope.users==null}">

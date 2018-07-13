@@ -19,9 +19,6 @@ import com.coffee.util.PageUtils;
 import com.coffee.util.WebUtils;
 
 /**
- * 现用于manage-items的页面。最后希望做成获取itemsPage的然后返回之前的网页 方法一：filter，貌似不行
- * 方法而：将通用代码放入util中，做成泛型
- * 
  * 用于获得Item分页，每次切换页面都要访问
  * 
  * @author K

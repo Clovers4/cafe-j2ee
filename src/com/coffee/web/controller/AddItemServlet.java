@@ -37,7 +37,6 @@ public class AddItemServlet extends HttpServlet {
 		// 封装表单
 		AddItemFormBean formBean = WebUtils.requestToBean(request, AddItemFormBean.class);
 		System.out.println(formBean);
-		System.out.println("OrgURL: " + WebUtils.getOrgServletPath(request));
 
 		// 校验用户注册填写的表单数据
 		if (formBean.validate() == false) {// 如果校验失败
@@ -46,7 +45,7 @@ public class AddItemServlet extends HttpServlet {
 			// 校验失败就说明是用户填写的表单数据有问题，那么就跳转刚才的页面
 
 			request.setAttribute("addItemError", "未全部填写/填写内容不符合要求！！");
-			request.getRequestDispatcher(WebUtils.getOrgServletPath(request)).forward(request, response);
+			request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
 			return;
 		}
 
@@ -61,11 +60,10 @@ public class AddItemServlet extends HttpServlet {
 			itemService.add(item);
 
 			request.setAttribute("operateSuccess", "修改成功！！");
-			System.out.println(WebUtils.getOrgServletPath(request));
 			request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
 		} catch (Exception e) {
-			request.setAttribute("message", "对不起，添加商品失败！！");
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			request.setAttribute("operateError", "对不起，添加商品失败！！");
+			request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
 			throw new RuntimeException(e);
 		}
 		System.out.println("------------AddItemServlet work finished-----------");

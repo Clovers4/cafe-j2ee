@@ -15,4 +15,15 @@ public interface IBaseService<T> {
 	 * @throws SQLException
 	 */
 	Page<T> get(int begin, int pageSize) throws SQLException;
+	
+
+	/**
+	 * 得到这个区间内的item
+	 * 
+	 * @param begin
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Page<T> get(T t,int begin, int pageSize) throws SQLException;
 }

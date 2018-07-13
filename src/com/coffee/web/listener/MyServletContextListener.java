@@ -21,10 +21,15 @@ public class MyServletContextListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		System.out.println("ServletContext对象创建");
-		/*
-		 * Connection connection = null; try { connection = JdbcUtils.getConnection();
-		 * connection.close(); } catch (SQLException e) { e.printStackTrace(); }
-		 */
+		Connection connection = null;
+		try {
+			connection = JdbcUtils.getConnection();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+
 	}
 
 	@Override

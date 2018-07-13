@@ -12,7 +12,7 @@ import com.coffee.domain.Page;
  * 
  * @author: K
  */
-public interface IItemService extends IBaseService<Item>{
+public interface IItemService extends IBaseService<Item> {
 	/**
 	 * 提供添加服务
 	 * 
@@ -28,14 +28,23 @@ public interface IItemService extends IBaseService<Item>{
 	 * @throws SQLException
 	 */
 	void update(Item item) throws SQLException;
-	
+
+	/**
+	 * 上传图片URL
+	 * 
+	 * @param itemId
+	 * @param imageUrl
+	 * @throws SQLException
+	 */
+	void update(int itemId, String imageUrl) throws SQLException;
+
 	/**
 	 * 删除商品
 	 * 
 	 * @param itemId
 	 * @throws SQLException
 	 */
-	void delete(int itemId)throws SQLException;
+	void delete(int itemId) throws SQLException;
 
 	/**
 	 * 得到全部item
@@ -45,6 +54,15 @@ public interface IItemService extends IBaseService<Item>{
 	List<Item> getAll() throws SQLException;
 
 	/**
+	 * 根据itemId来查找
+	 * 
+	 * @param itemId
+	 * @return
+	 * @throws SQLException
+	 */
+	Item get(int itemId) throws SQLException;
+	
+	/**
 	 * 得到这个区间内的item
 	 * 
 	 * @param begin
@@ -53,6 +71,23 @@ public interface IItemService extends IBaseService<Item>{
 	 * @throws SQLException
 	 */
 	Page<Item> get(int begin, int pageSize) throws SQLException;
-	
 
+	/**
+	 * 得到这个区间内的item
+	 * 
+	 * @param begin
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	Page<Item> get(Item item, int begin, int pageSize) throws SQLException;
+
+	/**
+	 * 查询该商品是否存在
+	 * 
+	 * @param itemId
+	 * @return
+	 * @throws SQLException
+	 */
+	boolean checkExist(String itemId) throws SQLException;
 }

@@ -30,32 +30,12 @@ import com.coffee.web.formbean.*;
 public class RegisterServlet extends HttpServlet {
 	private IUserService userService = new UserServiceImpl();
 
-	/**
-	 * 初始化连接池，初始化的位置有点问题，似乎是电脑重启之后就需要重新初始化连接池，而之后即使修改代码，也不会影响
-	 */
-	@Override
-	public void init() throws ServletException {
-		super.init();
-
-		Connection connection = null;
-		try {
-			connection = JdbcUtils.getConnection();
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 将客户端提交的表单数据封装到RegisterFormBean对象中
 		RegisterFormBean formBean = WebUtils.requestToBean(request, RegisterFormBean.class);
 		System.out.println(formBean);
-		String orgUrl = WebUtils.getOrgServletPath(request);
-		if (orgUrl.equals("/servlet/registerServlet")) {
-			orgUrl = "/index.jsp";
-		}
-		System.out.println("OrgURL: " + orgUrl);
+		String forwardUrl = request.getParameter("forwardUrl");
+		System.out.println("forwardUrl: " + forwardUrl);
 
 		// 校验用户注册填写的表单数据
 		if (formBean.validate() == false) {// 如果校验失败
@@ -64,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
 			// 校验失败就说明是用户填写的表单数据有问题，那么就跳转刚才的页面
 
 			request.setAttribute("registerError", "未全部填写/填写内容不符合要求！！");
-			response.sendRedirect(request.getContextPath() + orgUrl);
+			request.getRequestDispatcher(forwardUrl).forward(request, response);
 			return;
 		}
 
@@ -73,16 +53,15 @@ public class RegisterServlet extends HttpServlet {
 			// FormBean转domain
 			ConvertUtils.register(new DateLocaleConverter(), Date.class);// 注册字符串到日期的转换器
 			BeanUtils.copyProperties(user, formBean);
-			System.out.println(user);
 
 			userService.register(user);
 
 			request.setAttribute("registerSuccess", "注册成功！！");
-			request.getRequestDispatcher(orgUrl).forward(request, response);
+			request.getRequestDispatcher(forwardUrl).forward(request, response);
 
 		} catch (UserExistException e) {
 			request.setAttribute("registerError", "用户名重复,请更换一个用户名！！");
-			request.getRequestDispatcher(orgUrl).forward(request, response);
+			request.getRequestDispatcher(forwardUrl).forward(request, response);
 			throw e;
 		} catch (Exception e) {
 			request.setAttribute("message", "对不起，注册失败！！");

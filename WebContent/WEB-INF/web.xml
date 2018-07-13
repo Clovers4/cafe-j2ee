@@ -74,4 +74,28 @@
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
+
+		<!-- UserAuthorityFilter -->
+	<filter>
+		<filter-name>UserAuthorityFilter</filter-name>
+		<filter-class>com.coffee.web.filter.UserAuthorityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UserAuthorityFilter</filter-name>
+		<url-pattern>/pages/user/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+			<!-- UserAuthorityFilter -->
+	<filter>
+		<filter-name>AdminAuthorityFilter</filter-name>
+		<filter-class>com.coffee.web.filter.AdminAuthorityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdminAuthorityFilter</filter-name>
+		<url-pattern>/pages/admin/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 </web-app>

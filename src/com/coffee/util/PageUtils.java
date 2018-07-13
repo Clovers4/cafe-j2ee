@@ -18,7 +18,8 @@ import com.coffee.service.IBaseService;
  */
 public class PageUtils {
 
-	public static <T> Page<T> getPage(HttpServletRequest request, HttpServletResponse response,int pageSize,IBaseService<T> service) throws SQLException {
+	public static <T> Page<T> getPage(HttpServletRequest request, HttpServletResponse response, int pageSize,
+			IBaseService<T> service) throws SQLException {
 		int currentPage = getCurrentPage(request);
 		int begin = (currentPage - 1) * pageSize; // 计算每页的开头
 
@@ -26,7 +27,20 @@ public class PageUtils {
 		page.setCurrentPage(currentPage);
 		page.setPageSize(pageSize);
 		page.setUrl(getURL(request));
-		
+
+		return page;
+	}
+
+	public static <T> Page<T> getPage(HttpServletRequest request, HttpServletResponse response, int pageSize,
+			IBaseService<T> service, T t) throws SQLException {
+		int currentPage = getCurrentPage(request);
+		int begin = (currentPage - 1) * pageSize; // 计算每页的开头
+
+		Page<T> page = service.get(t, begin, pageSize);
+		page.setCurrentPage(currentPage);
+		page.setPageSize(pageSize);
+		page.setUrl(getURL(request));
+
 		return page;
 	}
 
@@ -62,6 +76,14 @@ public class PageUtils {
 	 * 利用这个URL，可以在JSP中直接使用page.url来完成超链接，与使用完整路径来访问GetUsersPageServlet等是相同的功能
 	 */
 	private static String getURL(HttpServletRequest request) {
-		return request.getRequestURI() + "?";
+		String contextPath = request.getContextPath(); // 项目名
+		String servletPath = request.getServletPath(); // servlet路径，即/*Servlet
+														// 建议使用request.getRequestURI()获得一个包含项目名+Servlet的路径
+		String queryString = request.getQueryString(); // ?后面的参数
+		if (queryString == null) {
+			queryString = "";
+		}
+		queryString = queryString.replaceAll("&currentPage=\\d+", "");
+		return contextPath + servletPath + "?" + queryString;
 	}
 }

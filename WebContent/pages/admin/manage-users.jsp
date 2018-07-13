@@ -16,28 +16,31 @@
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/js/verify.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/verify-modify-user.js"></script>
+
 </head>
 <body>
-
-<!-- 之后制作一个filter来进行过滤转发处理 -->
-	<!-- 未登录无法进入 -->
-	<c:if test="${empty sessionScope.admin}">
-		<script>
-			window.location.href = '${pageContext.request.contextPath}/index.jsp';
-		</script>
-	</c:if>
-
 	<!-- 无usersPage进入时，重新请求getUsersPagesServlet -->
-	<c:if test="${empty requestScope.usersPage}">
+	<c:if
+		test="${empty usersPage and empty registerSuccess and empty registerError and empty operateSuccess}">
 		<script>
 			window.location.href = '${pageContext.request.contextPath}/servlet/getUsersPageServlet';
 		</script>
 	</c:if>
 
+	<%
+		pageContext.setAttribute("getUsersPageServlet",
+				request.getContextPath()+"/servlet/getUsersPageServlet");
+		request.setAttribute("forwardUrl", "/pages/admin/manage-users.jsp"); //map
+	%>
+
+
+	<jsp:include page="/jspfragments/register-user.jsp" />
+
 	<!-- 网页头部 -->
-	<jsp:include page="/jspfragments/header.jsp" />
-	
+	<jsp:include page="/jspfragments/header.jsp"/>
+
 
 	<!-- 网页正文 -->
 	<br />
@@ -101,7 +104,7 @@
 								<span class="glyphicon glyphicon-plus"></span>新&nbsp;增
 							</button>
 							<button class="btn btn-success"
-								onclick="window.location.href='${usersPage.url }&currentPage=${usersPage.currentPage}'">
+								onclick="window.location.href='${getUsersPageServlet}'">
 								<span class="glyphicon glyphicon-refresh"></span>刷&nbsp;新
 							</button>
 						</div>
@@ -311,7 +314,7 @@
 	</div>
 
 	<!-- 修改成功后提示 -->
-	<c:if test="${not empty requestScope.operateSuccess}">
+	<c:if test="${not empty operateSuccess}">
 		<script>
 			$('#operate-success').modal("show");
 		</script>

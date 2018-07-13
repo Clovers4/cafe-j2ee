@@ -70,6 +70,12 @@ public class Page<T> {
 	@Override
 	public String toString() {
 		return "Page [currentPage=" + currentPage + ",pageSize=" + pageSize + ",totalCount=" + totalCount
+				+ ",totalPage=" + getTotalPage() + ",url=" + url +"]";
+	}
+	
+	public String toStringDetail() {
+		return "Page [currentPage=" + currentPage + ",pageSize=" + pageSize + ",totalCount=" + totalCount
 				+ ",totalPage=" + getTotalPage() + ",url=" + url + ",list=" + list + "]";
 	}
+	
 }

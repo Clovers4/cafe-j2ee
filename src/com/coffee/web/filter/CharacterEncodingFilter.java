@@ -85,7 +85,8 @@ class MyCharacterEncodingRequest extends HttpServletRequestWrapper {
 				return value;
 			} else {
 				// 如果是以get方式提交数据的，就对获取到的值进行转码处理
-				value = new String(value.getBytes("ISO8859-1"), this.request.getCharacterEncoding());
+			//	value = new String(value.getBytes("ISO8859-1"), this.request.getCharacterEncoding());
+				System.out.println("name="+name+",value="+value);
 				return value;
 			}
 		} catch (Exception e) {

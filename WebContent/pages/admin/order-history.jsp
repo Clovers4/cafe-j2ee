@@ -18,13 +18,6 @@
 
 </head>
 <body>
-	<!-- 未登录无法进入 -->
-	<c:if test="${empty sessionScope.admin}">
-		<script>
-			document.location = "${pageContext.request.contextPath}/index.jsp";
-		</script>
-	</c:if>
-
 	<!-- 网页头部 -->
 	<jsp:include page="/jspfragments/header.jsp" />
 

@@ -76,4 +76,12 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
+	/*
+	 * 这里暂时没有特征搜索
+	 */
+	@Override
+	public Page<User> get(User t, int begin, int pageSize) throws SQLException {
+		return this.get(begin, pageSize);
+	}
+
 }

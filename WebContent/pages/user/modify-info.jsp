@@ -16,17 +16,10 @@
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/js/verify.js"></script>
+<script src="${pageContext.request.contextPath}/js/verify-modify-user.js"></script>
 
 </head>
 <body>
-	<!-- 未登录无法进入 -->
-	<c:if test="${empty sessionScope.user}">
-		<script>
-			document.location = "${pageContext.request.contextPath}/index.jsp";
-		</script>
-	</c:if>
-
 	<!-- 网页头部 -->
 	<jsp:include page="/jspfragments/header.jsp" />
 

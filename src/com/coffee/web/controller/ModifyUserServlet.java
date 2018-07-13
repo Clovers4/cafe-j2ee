@@ -22,6 +22,8 @@ import com.coffee.web.formbean.ModifyUserFormBean;
 
 @WebServlet(name = "ModifyUserServlet", urlPatterns = "/servlet/modifyUserServlet")
 public class ModifyUserServlet extends HttpServlet {
+
+	private IUserService userService = new UserServiceImpl();
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModifyUserFormBean formBean = WebUtils.requestToBean(request, ModifyUserFormBean.class);
@@ -31,7 +33,7 @@ public class ModifyUserServlet extends HttpServlet {
 		modify(request, response, formBean);
 
 		request.setAttribute("operateSuccess", "修改成功！！");
-		request.getRequestDispatcher("/servlet/getUsersPageServlet").forward(request, response);
+		request.getRequestDispatcher("/pages/admin/manage-users.jsp").forward(request, response);
 	}
 
 	private void modify(HttpServletRequest request, HttpServletResponse response, ModifyUserFormBean formBean)
@@ -42,12 +44,10 @@ public class ModifyUserServlet extends HttpServlet {
 			BeanUtils.copyProperties(user, formBean);
 			System.out.println(user);
 
-			// 调用service层提供的注册用户服务实现用户修改
-			IUserService service = new UserServiceImpl();
-			service.update(user);
+			userService.update(user);
 		} catch (Exception e) {
 			request.setAttribute("operateError", "操作失败！！");
-			request.getRequestDispatcher("/servlet/getUsersPageServlet").forward(request, response);
+			request.getRequestDispatcher("/pages/admin/manage-users.jsp").forward(request, response);
 			throw new RuntimeException(e);
 		}
 

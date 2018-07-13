@@ -35,9 +35,8 @@ public class DeleteUserServlet extends HttpServlet {
 			throw new RuntimeException(e);
 		} finally {
 			System.out.println("------------DeleteUserServlet work finished-----------");
-			request.getRequestDispatcher("/servlet/getUsersPageServlet").forward(request, response);
+			request.getRequestDispatcher("/pages/admin/manage-users.jsp").forward(request, response);
 		}
-
 	}
 
 	@Override

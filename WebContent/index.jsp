@@ -40,8 +40,12 @@
 </style>
 
 </head>
-<!-- background="${pageContext.request.contextPath}/images/index/background1.png" -->
 <body>
+	<!-- 利用forwardUrl来确定(注册之后)返回的url -->
+	<%
+		request.setAttribute("forwardUrl", "/index.jsp"); //map
+	%>
+
 	<!-- 网页头部 -->
 	<jsp:include page="/jspfragments/header.jsp" />
 	<!-- 网页正文 -->
@@ -96,7 +100,7 @@
 			<div class="col-xs-4 ">
 				<img
 					src="${pageContext.request.contextPath}/images/index/peach-in-peach-frappuccino-blended-juice-drink.png"
-					class="img-circle"> 
+					class="img-circle">
 				<div class="caption">
 					<div class="text-muted">
 						<br />桃桃星冰乐®
@@ -106,7 +110,7 @@
 			<div class="col-xs-4 ">
 				<img
 					src="${pageContext.request.contextPath}/images/index/iced-coffe-blend.png"
-					class="img-circle"> 
+					class="img-circle">
 				<div class="caption">
 					<div class="text-muted">
 						<br />花榭清风综合咖啡豆
@@ -116,7 +120,7 @@
 			<div class="col-xs-4 ">
 				<img
 					src="${pageContext.request.contextPath}/images/index/teavana-matcha-mousse-cake.png"
-					class="img-circle"> 
+					class="img-circle">
 				<div class="caption">
 					<div class="text-muted">
 						<br />茶瓦纳抹茶慕斯蛋糕

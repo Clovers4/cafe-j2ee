@@ -13,7 +13,6 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.coffee.dao.IItemDao;
 import com.coffee.domain.Item;
-import com.coffee.domain.User;
 import com.coffee.util.ConnectionContext;
 
 /**
@@ -48,6 +47,32 @@ public class ItemDaoImpl implements IItemDao {
 	}
 
 	@Override
+	public List<Item> find(Item item) throws SQLException {
+		QueryRunner qr = new QueryRunner();
+		BeanProcessor bean = new GenerousBeanProcessor();
+		RowProcessor processor = new BasicRowProcessor(bean);
+		String sql = "select * from `item` where name like ? and type like ? ";
+		Object[] params = { "%" + item.getName() + "%", "%" + item.getType() + "%" };
+		System.out.println("%" + item.getName() + "%"+"---"+ "%" + item.getType() + "%" );
+
+		return (List<Item>) qr.query(ConnectionContext.getInstance().getConnection(), sql, params,
+				new BeanListHandler<Item>(Item.class, processor));
+
+	}
+
+	@Override
+	public List<Item> find(Item item, int begin, int pageSize) throws SQLException {
+		QueryRunner qr = new QueryRunner();
+		BeanProcessor bean = new GenerousBeanProcessor();
+		RowProcessor processor = new BasicRowProcessor(bean);
+		String sql = "select * from `item` where name like ? and type like ? order by item_id limit ?,?";
+		Object[] params = { "%" + item.getName() + "%", "%" + item.getType() + "%", begin, pageSize };
+
+		return (List<Item>) qr.query(ConnectionContext.getInstance().getConnection(), sql, params,
+				new BeanListHandler<Item>(Item.class, processor));
+	}
+
+	@Override
 	public List<Item> find(String name) throws SQLException {
 		QueryRunner qr = new QueryRunner();
 		BeanProcessor bean = new GenerousBeanProcessor();
@@ -56,6 +81,18 @@ public class ItemDaoImpl implements IItemDao {
 
 		return (List<Item>) qr.query(ConnectionContext.getInstance().getConnection(), sql, name,
 				new BeanListHandler<Item>(Item.class, processor));
+	}
+
+	@Override
+	public Item find(int itemId) throws SQLException {
+
+		QueryRunner qr = new QueryRunner();
+		BeanProcessor bean = new GenerousBeanProcessor();
+		RowProcessor processor = new BasicRowProcessor(bean);
+		String sql = "select * from `item` where item_id=?";
+
+		return (Item) qr.query(ConnectionContext.getInstance().getConnection(), sql, itemId,
+				new BeanHandler<Item>(Item.class, processor));
 	}
 
 	@Override
@@ -73,7 +110,10 @@ public class ItemDaoImpl implements IItemDao {
 		QueryRunner qr = new QueryRunner();
 		String sql = "update `item` set name=?,type=? ,stock=?,price=?,description=?,image_url=? where item_id=?";
 
-		qr.update(ConnectionContext.getInstance().getConnection(), sql, item.getItemId());
+		Object params[] = { item.getName(), item.getType(), item.getStock(), item.getPrice(), item.getDescription(),
+				item.getImageUrl(), item.getItemId() };
+
+		qr.update(ConnectionContext.getInstance().getConnection(), sql, params);
 	}
 
 	@Override
