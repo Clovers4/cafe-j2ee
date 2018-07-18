@@ -89,5 +89,5 @@ public interface IItemService extends IBaseService<Item> {
 	 * @return
 	 * @throws SQLException
 	 */
-	boolean checkExist(String itemId) throws SQLException;
+	boolean checkExist(int itemId) throws SQLException;
 }

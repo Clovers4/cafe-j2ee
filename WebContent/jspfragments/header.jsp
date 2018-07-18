@@ -62,13 +62,17 @@ body {
 						class="glyphicon glyphicon-th-list"></span> 菜单 <b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?">全部</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?">全部</a></li>
 						<li class="divider"></li>
-						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=饮料">饮料</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=饮料">饮料</a></li>
 						<li class="divider"></li>
-						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=小吃">小吃</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=小吃">小吃</a></li>
 						<li class="divider"></li>
-						<li><a href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=主食">主食</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/servlet/searchItemPageServlet?type=主食">主食</a></li>
 					</ul></li>
 			</ul>
 		</div>
@@ -79,7 +83,7 @@ body {
 			role="search" method="get">
 			<div class="form-group">
 				<input name="nameKeyword" type="text" class="form-control"
-					placeholder="Search">
+					placeholder="Search" size="11">
 			</div>
 			<button type="submit" class="btn btn-primary">搜索</button>
 		</form>
@@ -104,17 +108,20 @@ body {
 			<ul class="nav navbar-nav navbar-right">
 
 				<li><a href="#"><span class="text-primary">欢迎回来，${sessionScope.user.account}${sessionScope.admin.account}</span></a></li>
-				<li><a href="#"><span
-						class="glyphicon glyphicon-shopping-cart"></span> 购物车</a></li>
-				<li><c:if test="${not empty sessionScope.user}">
-						<a
-							href="${pageContext.request.contextPath}/pages/user/modify-info.jsp"><span
-							class="glyphicon glyphicon-user"></span> 个人中心</a>
-					</c:if> <c:if test="${not empty sessionScope.admin}">
-						<a
-							href="${pageContext.request.contextPath}/pages/admin/manage-users.jsp"><span
-							class="glyphicon glyphicon-user"></span> 管理中心</a>
-					</c:if></li>
+				<c:if test="${not empty sessionScope.user}">
+					<li><a
+						href="${pageContext.request.contextPath}/servlet/getShoppingcartServlet"><span
+							class="glyphicon glyphicon-shopping-cart"></span> 购物车</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/pages/user/modify-info.jsp"><span
+							class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+				</c:if>
+				<c:if test="${not empty sessionScope.admin}">
+					<li><a
+						href="${pageContext.request.contextPath}/pages/admin/manage-users.jsp"><span
+							class="glyphicon glyphicon-user"></span> 管理中心</a></li>
+				</c:if>
+
 				<li><button type="submit" class="btn btn-danger navbar-btn"
 						onclick="window.location.href='${pageContext.request.contextPath}/servlet/logoutServlet'">
 						<span class="glyphicon glyphicon-log-out"></span> 退出

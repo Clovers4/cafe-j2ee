@@ -20,9 +20,9 @@
 
 </head>
 <body>
+	
 	<!-- 网页头部 -->
 	<jsp:include page="/jspfragments/header.jsp" />
-
 
 	<!-- 网页正文 -->
 	<br />
@@ -50,7 +50,7 @@
 									class="glyphicon glyphicon-lock"></span> 修改密码</a></li>
 							<li class="nav-divider"></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/user/order-history.jsp">
+								href="${pageContext.request.contextPath}/pages/user/history-orders.jsp">
 									<span class="glyphicon glyphicon-list-alt"></span> 历史订单
 							</a></li>
 						</ul>
@@ -127,7 +127,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<!-- 修改成功弹框 -->
 	<div id="modify-info-success" class="modal fade">

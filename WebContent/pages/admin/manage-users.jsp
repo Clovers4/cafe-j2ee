@@ -69,7 +69,7 @@
 									class="glyphicon glyphicon glyphicon-leaf"></span> 管理菜单</a></li>
 							<li class="nav-divider"></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/admin/order-history.jsp">
+								href="${pageContext.request.contextPath}/pages/admin/history-orders.jsp">
 									<span class="glyphicon glyphicon-list-alt"></span> 历史订单
 							</a></li>
 							<li><a

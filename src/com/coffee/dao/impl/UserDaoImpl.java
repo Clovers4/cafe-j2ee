@@ -50,7 +50,17 @@ public class UserDaoImpl implements IUserDao {
 		return (User) qr.query(ConnectionContext.getInstance().getConnection(), sql, account,
 				new BeanHandler<User>(User.class, processor));
 	}
+	
+	@Override
+	public User findById(int userId) throws SQLException {
+		QueryRunner qr = new QueryRunner();
+		BeanProcessor bean = new GenerousBeanProcessor();
+		RowProcessor processor = new BasicRowProcessor(bean);
+		String sql = "select * from `user` where user_id=?";
 
+		return (User) qr.query(ConnectionContext.getInstance().getConnection(), sql, userId,
+				new BeanHandler<User>(User.class, processor));
+	}
 	@Override
 	public void insert(User user) throws SQLException {
 		QueryRunner runner = new QueryRunner();
@@ -76,5 +86,7 @@ public class UserDaoImpl implements IUserDao {
 
 		runner.update(ConnectionContext.getInstance().getConnection(), sql, account);
 	}
+
+
 
 }

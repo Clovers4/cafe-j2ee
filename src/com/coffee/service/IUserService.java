@@ -67,6 +67,24 @@ public interface IUserService extends IBaseService<User>{
 	 */
 	Page<User> get(int begin, int pageSize) throws SQLException;
 	
+	/**
+	 * 通过account查找id
+	 * 
+	 * @param account
+	 * @return
+	 * @throws SQLException
+	 */
+	int getId(String account) throws SQLException;
+	
+	/**
+	 * 通过id获得用户名
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws SQLException
+	 */
+	String getAccount(int userId) throws SQLException;
+	
 
 	/**
 	 * 查询该账号是否存在

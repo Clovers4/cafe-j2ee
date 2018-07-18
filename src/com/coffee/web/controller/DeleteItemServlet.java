@@ -23,7 +23,7 @@ public class DeleteItemServlet extends HttpServlet {
 		System.out.println("itemId:" + itemId + ",name:" + request.getParameter("name"));
 
 		try {
-			if (itemId == null || itemService.checkExist(itemId) == false) {
+			if (itemId == null || itemService.checkExist(Integer.parseInt(itemId)) == false) {
 				request.setAttribute("operateError", "操作失败！！");
 			} else {
 				itemService.delete(Integer.parseInt(itemId));

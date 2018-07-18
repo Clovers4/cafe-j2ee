@@ -84,4 +84,14 @@ public class UserServiceImpl implements IUserService {
 		return this.get(begin, pageSize);
 	}
 
+	@Override
+	public String getAccount(int userId) throws SQLException {
+		return userDao.findById(userId).getAccount();
+	}
+
+	@Override
+	public int getId(String account) throws SQLException {
+		return userDao.find(account).getUserId();
+	}
+
 }

@@ -83,7 +83,7 @@ public class PageUtils {
 		if (queryString == null) {
 			queryString = "";
 		}
-		queryString = queryString.replaceAll("&currentPage=\\d+", "");
+		queryString = queryString.replaceAll("[&]{0,1}currentPage=(\\d+)*", "");
 		return contextPath + servletPath + "?" + queryString;
 	}
 }

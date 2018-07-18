@@ -8,15 +8,22 @@ import java.util.Map;
  * 
  * @author K
  */
-public class ShoppingcartItemFormbean {
-	private String itemId;
+public class ShoppingcartItemFormBean {
+	private int userId;
+	private int itemId;
 	private int number;
 
-	public void setItemId(String itemId) {
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	
+	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
-
-	public String getItemId() {
+	public int getItemId() {
 		return itemId;
 	}
 
@@ -57,7 +64,7 @@ public class ShoppingcartItemFormbean {
 
 	@Override
 	public String toString() {
-		return "ShoppingcartItemFormbean [itemId=" + itemId + ",number=" + number + "]";
+		return "ShoppingcartItemFormBean [userId="+userId+",itemId=" + itemId + ",number=" + number + "]";
 	}
 
 }

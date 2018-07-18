@@ -60,22 +60,23 @@
 						</c:if>
 
 						<c:if test="${not empty sessionScope.user}">
-							<form action="#" method="post">
+							<form action="${pageContext.request.contextPath}/servlet/addShoppingcartItemServlet" method="post">
 								<div class="form-group has-feedback">
 									<label for="item-number"><font size="4">购买数量(库存量：${item.stock})</font></label>
 									<div class="input-group">
 										<span class="input-group-btn">
 											<button class="btn btn-default" onclick="decreaseItemNum()"
 												type="button">-</button>
-										</span> <input id="item-number" type="text" class="form-control"
-											value="1" style="text-align: center;"> <span
-											class="input-group-btn">
+										</span> <input id="item-number" name="number" type="text"
+											class="form-control" value="1" style="text-align: center;">
+										<span class="input-group-btn">
 											<button class="btn btn-default"
 												onclick="increaseItemNum(${item.stock})" type="button">+</button>
 										</span>
 									</div>
 									<br /> <input type="hidden" name="itemId"
-										value="${item.itemId}">
+										value="${item.itemId}"><input type="hidden"
+										name="userId" value="${user.userId}">
 									<button type="submit" class="btn btn-danger"
 										style="width: 100%">加入购物车</button>
 								</div>
@@ -87,6 +88,73 @@
 		</div>
 	</div>
 	</div>
+
+
+	<!-- 操作成功弹框 -->
+	<div id="operate-success" class="modal fade" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-title">
+					<h1 class="text-center">操作成功</h1>
+				</div>
+
+				<!-- 主体 -->
+				<div class="modal-body">
+					<center>
+						${operateSuccess} <br />
+						<button class="btn btn-primary" type="submit" data-dismiss="modal">确&nbsp;&nbsp;定</button>
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 操作成功后提示 -->
+	<c:if test="${not empty operateSuccess}">
+		<script>
+			$('#operate-success').modal("show");
+		</script>
+	</c:if>
+
+	<!-- 操作失败弹框 -->
+	<div id="operate-error" class="modal fade" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-title">
+					<h1 class="text-center">操作失败</h1>
+				</div>
+
+				<!-- 主体 -->
+				<div class="modal-body">
+					<center>
+						<h3>${operateError}</h3>
+						<button class="btn btn-primary" type="submit" data-dismiss="modal">确&nbsp;&nbsp;定</button>
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 操作失败后提示 -->
+	<c:if test="${not empty operateError}">
+		<script>
+			$('#operate-error').modal("show");
+		</script>
+	</c:if>
+
+
 
 </body>
 </html>

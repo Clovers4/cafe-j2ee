@@ -51,7 +51,6 @@ public class RegisterServlet extends HttpServlet {
 		User user = new User();
 		try {
 			// FormBean转domain
-			ConvertUtils.register(new DateLocaleConverter(), Date.class);// 注册字符串到日期的转换器
 			BeanUtils.copyProperties(user, formBean);
 
 			userService.register(user);

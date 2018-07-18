@@ -71,7 +71,7 @@ public class ItemServiceImpl implements IItemService {
 	}
 
 	@Override
-	public boolean checkExist(String itemId) throws SQLException {
+	public boolean checkExist(int itemId) throws SQLException {
 		if (itemDao.find(itemId) != null) {
 			return true;
 		} else {

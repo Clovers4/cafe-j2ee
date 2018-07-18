@@ -49,7 +49,7 @@
 									class="glyphicon glyphicon-lock"></span> 修改密码</a></li>
 							<li class="nav-divider"></li>
 							<li><a
-								href="${pageContext.request.contextPath}/pages/user/order-history.jsp">
+								href="${pageContext.request.contextPath}/pages/user/history-orders.jsp">
 									<span class="glyphicon glyphicon-list-alt"></span> 历史订单
 							</a></li>
 						</ul>

@@ -38,7 +38,7 @@ public class ModifyItemServlet extends HttpServlet {
 		}
 		modify(request, response, formBean);
 		request.setAttribute("operateSuccess", "修改成功！！");
-		request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
+		request.getRequestDispatcher("/servlet/getItemsPageServlet").forward(request, response);
 
 	}
 
@@ -51,7 +51,7 @@ public class ModifyItemServlet extends HttpServlet {
 			itemService.update(item);
 		} catch (Exception e) {
 			request.setAttribute("operateError", "操作失败！！");
-			request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
+			request.getRequestDispatcher("/servlet/getItemsPageServlet").forward(request, response);
 			throw new RuntimeException(e);
 		}
 	}
