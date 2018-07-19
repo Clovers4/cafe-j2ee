@@ -23,22 +23,26 @@ public class CharacterEncodingFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		//System.out.println("CharacterEncodingFilter.doFilter()---started---;");
+		// System.out.println("CharacterEncodingFilter.doFilter()---started---;");
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 
+		// 读取参数
 		String charset = filterConfig.getInitParameter("charset");
 		if (charset == null) {
 			charset = defaultCharset;
 		}
+
+		// 设置编码
 		request.setCharacterEncoding(charset);
 		response.setCharacterEncoding(charset);
 		response.setContentType("text/html;charset=" + charset);
 
+		// 包装request，解决get方式获得的参数中文乱码问题
 		MyCharacterEncodingRequest requestWrapper = new MyCharacterEncodingRequest(request);
 
 		chain.doFilter(requestWrapper, response);
-		//System.out.println("CharacterEncodingFilter.doFilter()---finished---;");
+		// System.out.println("CharacterEncodingFilter.doFilter()---finished---;");
 	}
 
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -52,11 +56,7 @@ public class CharacterEncodingFilter implements Filter {
 }
 
 /*
- * 1.实现与被增强对象相同的接口 2、定义一个变量记住被增强对象 3、定义一个构造器，接收被增强对象 4、覆盖需要增强的方法
- * 5、对于不想增强的方法，直接调用被增强对象（目标对象）的方法
- */
-/*
- * @Description: url 转化成UTF-8格式
+ * @Description:解决get方式获得的参数中文乱码问题
  */
 class MyCharacterEncodingRequest extends HttpServletRequestWrapper {
 
@@ -67,11 +67,6 @@ class MyCharacterEncodingRequest extends HttpServletRequestWrapper {
 		this.request = request;
 	}
 
-	/*
-	 * 重写getParameter方法
-	 * 
-	 * @see javax.servlet.ServletRequestWrapper#getParameter(java.lang.String)
-	 */
 	@Override
 	public String getParameter(String name) {
 		try {
@@ -85,8 +80,10 @@ class MyCharacterEncodingRequest extends HttpServletRequestWrapper {
 				return value;
 			} else {
 				// 如果是以get方式提交数据的，就对获取到的值进行转码处理
-			//	value = new String(value.getBytes("ISO8859-1"), this.request.getCharacterEncoding());
-				System.out.println("name="+name+",value="+value);
+				// 有时候使用这个方式转码反而出现"？？"乱码？
+				// value = new String(value.getBytes("ISO8859-1"),
+				// this.request.getCharacterEncoding());
+				System.out.println("name=" + name + ",value=" + value);
 				return value;
 			}
 		} catch (Exception e) {

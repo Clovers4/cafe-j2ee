@@ -20,44 +20,43 @@ import com.coffee.util.*;
 import com.coffee.web.formbean.*;
 
 /**
- * 处理用户注册的Servlet
+ * 用户注册
  * 
  * @author K
- *
  */
-
 @WebServlet(name = "RegisterServlet", urlPatterns = "/servlet/registerServlet")
 public class RegisterServlet extends HttpServlet {
 	private IUserService userService = new UserServiceImpl();
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 将客户端提交的表单数据封装到RegisterFormBean对象中
+		// 获取表单
 		RegisterFormBean formBean = WebUtils.requestToBean(request, RegisterFormBean.class);
 		System.out.println(formBean);
+
+		// 由于各个页面都有header，随时可以注册，注册完后需要重定向回去,
+		// 但直接使用request中的refer参数重定向的话，无法实现连续注册（url没有变化）
+		// 获取回送地址，之后重定向到该地址
 		String forwardUrl = request.getParameter("forwardUrl");
 		System.out.println("forwardUrl: " + forwardUrl);
 
 		// 校验用户注册填写的表单数据
-		if (formBean.validate() == false) {// 如果校验失败
-			// 将封装了用户填写的表单数据的formBean对象发送回register.jsp页面的form表单中进行显示
+		if (formBean.validate() == false) {
 			request.setAttribute("registerFormBean", formBean);
-			// 校验失败就说明是用户填写的表单数据有问题，那么就跳转刚才的页面
-
 			request.setAttribute("registerError", "未全部填写/填写内容不符合要求！！");
 			request.getRequestDispatcher(forwardUrl).forward(request, response);
 			return;
 		}
 
+		// 注册
 		User user = new User();
 		try {
-			// FormBean转domain
+			// 表单数据拷贝
 			BeanUtils.copyProperties(user, formBean);
 
 			userService.register(user);
 
 			request.setAttribute("registerSuccess", "注册成功！！");
 			request.getRequestDispatcher(forwardUrl).forward(request, response);
-
 		} catch (UserExistException e) {
 			request.setAttribute("registerError", "用户名重复,请更换一个用户名！！");
 			request.getRequestDispatcher(forwardUrl).forward(request, response);

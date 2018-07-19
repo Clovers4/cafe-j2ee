@@ -1,5 +1,10 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:VO，字段对应order_detail表与item表，以此可以查看历史订单中各个餐点更加详细的信息
+ * 
+ * @author K
+ */
 public class OrderDetailVO {
 	private String name;
 	private String type;

@@ -15,7 +15,7 @@ import com.coffee.service.IItemHeatVOService;
 import com.coffee.service.impl.ItemHeatVOServiceImpl;
 
 /**
- * 用于获得Item热度
+ * 用于获得Item热度对象
  * 
  * @author K
  */
@@ -26,16 +26,17 @@ public class GetItemHeatServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------GetItemHeatServlet work start-----------");
-
+		// 获取item热度VO列表
 		List<ItemHeatVO> list;
 		try {
 			list = itemHeatVOService.getAll();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-
-		request.setAttribute("items", list);
 		System.out.println(list);
+
+		//回显
+		request.setAttribute("items", list);
 		request.getRequestDispatcher("/pages/admin/items-heat.jsp").forward(request, response);
 
 		System.out.println("------------GetItemHeatServlet work finished-----------");

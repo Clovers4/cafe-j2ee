@@ -3,9 +3,7 @@ package com.coffee.web.formbean;
 import java.util.*;
 
 /**
- * 封装用户注册表单bean，用来接收header.jsp中的注册表单输入项的值
- * RegisterFormBean中的属性与header.jsp中的表单输入项一一对应
- * RegisterFormBean还需要进行后端验证
+ * 封装用户注册表单
  * 
  * @author K
  */

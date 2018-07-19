@@ -1,7 +1,11 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:PO，字段对应admin表
+ * 
+ * @author K
+ */
 public class Admin {
-	
 	private int adminId;
 	private String account;
 	private String password;

@@ -7,15 +7,6 @@
 <title>test</title>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link
-	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
-<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script
-	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <script src="https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.js"></script>
 <script src="https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 <script src="https://cdn.bootcss.com/Chart.js/2.7.2/Chart.js"></script>
@@ -27,37 +18,18 @@
 </head>
 <body>
 
+	<!-- 网页头部 -->
+	<jsp:include page="/jspfragments/header.jsp" />
+	
 	<div class="container">
 		<div class="row">
 			<!-- 左侧菜单栏 -->
 			<div class="col-md-2">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<ul class="nav nav-pills nav-stacked">
-							<li class="disabled"><a href="#"><font size="3"
-									style="font-weight: bold;"><span
-										class="glyphicon glyphicon-th-large"></span>管理中心</font></a></li>
-						</ul>
 					</div>
 					<div class="panel-body">
-						<ul class="nav nav-pills nav-stacked">
-							<li><a
-								href="${pageContext.request.contextPath}/pages/admin/manage-users.jsp">
-									<span class="glyphicon glyphicon-user"></span> 管理用户
-							</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/admin/manage-items.jsp"><span
-									class="glyphicon glyphicon glyphicon-leaf"></span> 管理菜单</a></li>
-							<li class="nav-divider"></li>
-							<li class="active"><a
-								href="${pageContext.request.contextPath}/pages/admin/history-orders.jsp">
-									<span class="glyphicon glyphicon-list-alt"></span> 历史订单
-							</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/pages/admin/items-heat.jsp">
-									<span class="glyphicon glyphicon-fire"></span> 餐点热度
-							</a></li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>

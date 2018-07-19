@@ -23,7 +23,9 @@ import com.coffee.service.impl.UserServiceImpl;
 import com.coffee.util.PageUtils;
 
 /**
- * 用于获得用户的分页，每次切换页面都要访问
+ * 用于获得历史订单的分页，每次切换页面都要访问；
+ * 
+ * 管理员和用户可查看的范围有所不同
  * 
  * @author K
  */
@@ -37,6 +39,7 @@ public class GetHistoryOrdersPageServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------GetHistoryOrdersPageServlet work start-----------");
 
+		// 判断是用户发来的请求还是管理员发来的请求,并进行相应的处理
 		if (request.getSession().getAttribute("user") != null) {
 			userGet(request, response);
 		} else if (request.getSession().getAttribute("admin") != null) {
@@ -52,13 +55,17 @@ public class GetHistoryOrdersPageServlet extends HttpServlet {
 
 	private void userGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 从session中直接取出user
 		User user = (User) request.getSession().getAttribute("user");
+		// 使用一个Order来承载关键词，进行特征搜索
 		Order orderFeature = new Order();
 		orderFeature.setUserId(user.getUserId());
 		try {
+			// 获取分页
 			Page<Order> page = PageUtils.getPage(request, response, 5, orderService, orderFeature);
-			request.setAttribute("ordersPage", page);
 			System.out.println("Get ordersPage:" + page);
+			// 回显
+			request.setAttribute("ordersPage", page);
 			request.getRequestDispatcher("/pages/user/history-orders.jsp").forward(request, response);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -67,12 +74,15 @@ public class GetHistoryOrdersPageServlet extends HttpServlet {
 
 	private void adminGet(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
+		// 使用一个OrderVO来承载关键词，进行特征搜索
 		OrderVO orderFeature = new OrderVO();
+		// 由于管理员可通过订单Id或者用户名关键词搜索,因此先判断是哪种搜索
 		String status = request.getParameter("status");
 		System.out.println(status);
+		// 设置OrderVO的字段
 		if (status != null && status.equals("orderId")) {
 			String orderId = request.getParameter("keyword");
-			if (orderId != null) {
+			if (orderId != null&&orderId.equals("")==false) {
 				orderFeature.setOrderId(Integer.parseInt(orderId));
 			}
 		}
@@ -83,6 +93,7 @@ public class GetHistoryOrdersPageServlet extends HttpServlet {
 			}
 		}
 
+		// 特征搜索，获取Page
 		try {
 			Page<OrderVO> page = null;
 			System.out.println(orderFeature);
@@ -93,8 +104,9 @@ public class GetHistoryOrdersPageServlet extends HttpServlet {
 				page = PageUtils.getPage(request, response, 5, orderVOService, orderFeature);
 				System.out.println("特征搜索");
 			}
-			request.setAttribute("ordersPage", page);
 			System.out.println("Get ordersPage:" + page);
+			// 回显
+			request.setAttribute("ordersPage", page);
 			request.getRequestDispatcher("/pages/admin/history-orders.jsp").forward(request, response);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

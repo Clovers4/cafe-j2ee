@@ -1,5 +1,10 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:PO，字段对应item表
+ * 
+ * @author K
+ */
 public class Item {
 	private int itemId;
 	private String name;

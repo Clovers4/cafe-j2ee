@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.*;
 
+import com.coffee.domain.Admin;
 import com.coffee.domain.User;
+import com.coffee.service.IAdminService;
 import com.coffee.service.IUserService;
+import com.coffee.service.impl.AdminServiceImpl;
 import com.coffee.service.impl.UserServiceImpl;
 import com.coffee.util.WebUtils;
 
@@ -19,10 +22,12 @@ import com.coffee.util.WebUtils;
 		*/
 
 public class AutoLoginFilter implements Filter {
+	private IAdminService adminService = new AdminServiceImpl();
+	private IUserService userService = new UserServiceImpl();
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		//System.out.println("AutoLoginFilter.doFilter()---started---;");
+		// System.out.println("AutoLoginFilter.doFilter()---started---;");
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
@@ -55,17 +60,15 @@ public class AutoLoginFilter implements Filter {
 		}
 
 		chain.doFilter(request, response);
-		//System.out.println("AutoLoginFilter.doFilter()---finished---;");
+		// System.out.println("AutoLoginFilter.doFilter()---finished---;");
 	}
 
 	private void userLogin(HttpServletRequest request, HttpServletResponse response, String account, String password) {
-		IUserService service = new UserServiceImpl();
 		User user = null;
 		try {
-			user = service.login(account, password);
+			user = userService.login(account, password);
 			System.out.println(user);
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 
 		if (user != null) {
@@ -74,7 +77,16 @@ public class AutoLoginFilter implements Filter {
 	}
 
 	private void adminLogin(HttpServletRequest request, HttpServletResponse response, String account, String password) {
+		Admin admin = null;
+		try {
+			admin = adminService.login(account, password);
+			System.out.println(admin);
+		} catch (SQLException e) {
+		}
 
+		if (admin != null) {
+			request.getSession().setAttribute("admin", admin);
+		}
 	}
 
 	@Override

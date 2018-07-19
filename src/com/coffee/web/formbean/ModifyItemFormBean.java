@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 接收pages/admin/manage-items.jsp中的修改表单
+ * 封装修改商品信息表单
  * 
  * @author K
  */

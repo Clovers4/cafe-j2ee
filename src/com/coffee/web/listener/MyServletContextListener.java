@@ -14,7 +14,6 @@ import com.coffee.util.JdbcUtils;
  * 
  * @author: K
  */
-
 @WebListener
 public class MyServletContextListener implements ServletContextListener {
 

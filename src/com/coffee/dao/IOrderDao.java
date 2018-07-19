@@ -12,7 +12,6 @@ import com.coffee.domain.Order;
  * @author: K
  */
 public interface IOrderDao {
-
 	/**
 	 * 返回一个包含所有Item的List
 	 * 
@@ -32,8 +31,9 @@ public interface IOrderDao {
 	List<Order> find(int begin, int pageSize) throws SQLException;
 
 	/**
-	 * 特征搜索,分页查找,返回从begin开始到begin+pageSize结束范围内的Item
+	 * 特征搜索，根据Order的order_id或者user_id,分页查找,返回从begin开始到begin+pageSize结束范围内的Item
 	 * 
+	 * @param orderFeature
 	 * @param begin
 	 * @param pageSize
 	 * @return
@@ -42,31 +42,36 @@ public interface IOrderDao {
 	List<Order> find(Order orderFeature, int begin, int pageSize) throws SQLException;
 
 	/**
-	 * 特征搜索
+	 * 特征搜索，根据Order的order_id或者user_id进行查找
 	 * 
-	 * @param account
-	 * @return 查到的商品list
+	 * @param orderFeature
+	 * @return
+	 * @throws SQLException
 	 */
 	List<Order> find(Order orderFeature) throws SQLException;
 
 	/**
-	 * 添加商品
+	 * 向order表插入一条数据，并且返回其id（主键）
 	 * 
-	 * @param item
+	 * @param order
+	 * @return
+	 * @throws SQLException
 	 */
 	Integer insert(Order order) throws SQLException;
 
 	/**
-	 * 修改订单，原则不允许
+	 * 更新order表的数据，原则上不允许
 	 * 
-	 * @param item
+	 * @param order
+	 * @throws SQLException
 	 */
 	void update(Order order) throws SQLException;
 
 	/**
-	 * 删除订单，原则上不允许
+	 * 删除order表的数据，原则上不允许
 	 * 
-	 * @param account
+	 * @param orderId
+	 * @throws SQLException
 	 */
 	void delete(int orderId) throws SQLException;
 }

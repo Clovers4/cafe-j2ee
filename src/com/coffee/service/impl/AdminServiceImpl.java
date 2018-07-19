@@ -27,5 +27,4 @@ public class AdminServiceImpl implements IAdminService {
 			return null;
 		}
 	}
-
 }

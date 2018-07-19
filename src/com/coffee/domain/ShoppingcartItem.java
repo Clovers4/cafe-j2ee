@@ -1,5 +1,10 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:PO，字段对应shoppingcart_item表
+ * 
+ * @author K
+ */
 public class ShoppingcartItem {
 	private int userId;
 	private int itemId;

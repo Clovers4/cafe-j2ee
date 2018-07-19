@@ -8,9 +8,6 @@ import java.util.Map;
  * 
  * @author K
  */
-/*
- * 原来应该用register作为前缀，之前做登录注册的时候没有考虑到，导致这边几块耦合度太高，很多地方写的比较死，这里使用了Add作为前缀
- */
 public class AddItemFormBean {
 	private String name;
 	private String type;

@@ -20,18 +20,26 @@ import com.coffee.service.impl.UserServiceImpl;
 import com.coffee.util.WebUtils;
 import com.coffee.web.formbean.ModifyUserFormBean;
 
+/**
+ * 管理员修改用户个人信息&密码。原则上管理员根本都不应该修改用户信息
+ * 
+ * @author K
+ */
 @WebServlet(name = "ModifyUserServlet", urlPatterns = "/servlet/modifyUserServlet")
 public class ModifyUserServlet extends HttpServlet {
 
 	private IUserService userService = new UserServiceImpl();
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ModifyUserFormBean formBean = WebUtils.requestToBean(request, ModifyUserFormBean.class);
 		System.out.println("------------ModifyUserServlet work start-----------");
+		//读取表单数据
+		ModifyUserFormBean formBean = WebUtils.requestToBean(request, ModifyUserFormBean.class);
 		System.out.println(formBean);
 
+		//修改
 		modify(request, response, formBean);
 
+		//回显
 		request.setAttribute("operateSuccess", "修改成功！！");
 		request.getRequestDispatcher("/pages/admin/manage-users.jsp").forward(request, response);
 	}
@@ -40,7 +48,6 @@ public class ModifyUserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		User user = new User();
 		try {
-			ConvertUtils.register(new DateLocaleConverter(), Date.class);// 注册字符串到日期的转换器
 			BeanUtils.copyProperties(user, formBean);
 			System.out.println(user);
 

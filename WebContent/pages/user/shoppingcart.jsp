@@ -33,7 +33,7 @@
 							<font size="4" style="line-height: 35px">购物车</font>
 						</div>
 						<div class="pull-right">
-							<button class="btn btn-success" onclick="window.location.href=''">
+							<button class="btn btn-success" onclick="window.location.href='${pageContext.request.contextPath}/servlet/getShoppingcartServlet'">
 								<span class="glyphicon glyphicon-refresh"></span>&nbsp;刷&nbsp;新
 							</button>
 						</div>

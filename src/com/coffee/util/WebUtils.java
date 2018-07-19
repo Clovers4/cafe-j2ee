@@ -7,7 +7,11 @@ import javax.servlet.http.*;
 import org.apache.commons.beanutils.BeanUtils;
 
 /**
- * 把request对象中的请求参数封装到bean中
+ * 与Web有关的工具类。功能有：
+ * 把request对象中的表单封装到bean中
+ * 生成UUID
+ * MD5加密
+ * 获取上个页面的url（切分成可重定向的字符串）
  * 
  * @author K
  */

@@ -21,48 +21,56 @@ import com.coffee.util.WebUtils;
 import com.coffee.web.formbean.LoginFormBean;
 import com.coffee.web.formbean.ModifyPasswordFormBean;
 
+/**
+ * 修改用户密码
+ * 
+ * @author K
+ */
 @WebServlet(name = "ModifyPasswordServlet", urlPatterns = "/servlet/modifyPasswordServlet")
 public class ModifyPasswordServlet extends HttpServlet {
+	private IUserService service = new UserServiceImpl();
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 读取表单信息
 		ModifyPasswordFormBean formBean = WebUtils.requestToBean(request, ModifyPasswordFormBean.class);
 		System.out.println("------------ModifyPasswordServlet work start-----------");
 		System.out.println(formBean);
 
+		// 校验表单数据
+		if (formBean.validate() == false) {
+			System.out.println("URL: " + request.getParameter("url"));
+			request.setAttribute("modifyPasswordFormBean", formBean);
+			request.setAttribute("modifyPasswordError", "未全部填写/填写内容不符合要求！！");
+			request.getRequestDispatcher("/user/modify-password.jsp").forward(request, response);
+			return;
+		}
+
+		// 修改密码
 		if (request.getSession().getAttribute("user") != null) {
 			userModifyPassword(request, response, formBean);
 		}
+
+		// 回显
 		request.setAttribute("modifyPasswordSuccess", "修改成功！！");
 		request.getRequestDispatcher("/pages/user/modify-password.jsp").forward(request, response);
 	}
 
 	private void userModifyPassword(HttpServletRequest request, HttpServletResponse response,
 			ModifyPasswordFormBean formBean) throws ServletException, IOException {
-		// 校验表单数据
-		if (formBean.validate() == false) {
-			request.setAttribute("modifyPasswordFormBean", formBean);
-
-			System.out.println("URL: " + request.getParameter("url"));
-			request.setAttribute("modifyPasswordError", "未全部填写/填写内容不符合要求！！");
-			request.getRequestDispatcher("/user/modify-password.jsp").forward(request, response);
-			return;
-		}
-
+		// 从session中读取user
 		User user = (User) request.getSession().getAttribute("user");
-		// FormBean转domain
 		try {
-			ConvertUtils.register(new DateLocaleConverter(), Date.class);// 注册字符串到日期的转换器
+			// 拷贝字段
 			BeanUtils.copyProperties(user, formBean);
 			System.out.println(user);
 
 			// 调用service层提供的注册用户服务实现用户修改
-			IUserService service = new UserServiceImpl();
 			service.update(user);
 			request.getSession().setAttribute("user", user);
-			resetAutoLoginCookie(request, response,user.getPassword());
+			resetAutoLoginCookie(request, response, user.getPassword());
 
 		} catch (Exception e) {
-			e.printStackTrace(); // 在后台记录异常
 			request.setAttribute("message", "对不起，修改失败！！");
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			throw new RuntimeException(e);
@@ -78,7 +86,7 @@ public class ModifyPasswordServlet extends HttpServlet {
 	 * @param response
 	 * @param formBean
 	 */
-	private void resetAutoLoginCookie(HttpServletRequest request, HttpServletResponse response,String password) {
+	private void resetAutoLoginCookie(HttpServletRequest request, HttpServletResponse response, String password) {
 		// 1.得到用户带过来的autologin的cookie
 		String value = null;
 		int logintime = 0;

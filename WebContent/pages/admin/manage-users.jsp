@@ -7,6 +7,7 @@
 <title>☆☆卡布奇诺咖啡馆☆☆</title>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <link
 	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -30,17 +31,14 @@
 	</c:if>
 
 	<%
-		pageContext.setAttribute("getUsersPageServlet",
-				request.getContextPath()+"/servlet/getUsersPageServlet");
+		pageContext.setAttribute("getUsersPageServlet", request.getContextPath() + "/servlet/getUsersPageServlet");
 		request.setAttribute("forwardUrl", "/pages/admin/manage-users.jsp"); //map
 	%>
-
 
 	<jsp:include page="/jspfragments/register-user.jsp" />
 
 	<!-- 网页头部 -->
-	<jsp:include page="/jspfragments/header.jsp"/>
-
+	<jsp:include page="/jspfragments/header.jsp" />
 
 	<!-- 网页正文 -->
 	<br />
@@ -100,7 +98,7 @@
 						</div>
 						<div class="pull-right">
 							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#register"">
+								data-target="#register">
 								<span class="glyphicon glyphicon-plus"></span>新&nbsp;增
 							</button>
 							<button class="btn btn-success"
@@ -321,8 +319,7 @@
 	</c:if>
 
 	<!-- 确定删除弹框 -->
-	<div id="delete" class="modal fade" aria-hidden="true"
-		data-backdrop="static">
+	<div id="delete" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- 右上角的叉 -->

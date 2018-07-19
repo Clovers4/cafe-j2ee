@@ -45,9 +45,10 @@ public class AddOrderServlet extends HttpServlet {
 		order.setCreatedTime(new Date());
 		System.out.println(order);
 
-		// 下订单
 		try {
+			// 下订单
 			orderService.add(order);
+			// 回显
 			request.setAttribute("operateSuccess", "下单成功！！");
 			request.getRequestDispatcher("/servlet/getShoppingcartServlet").forward(request, response);
 		} catch (Exception e) {

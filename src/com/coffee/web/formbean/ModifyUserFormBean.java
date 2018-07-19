@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 接收pages/admin/manage-users.jsp中的修改表单
+ *封装管理员直接修改用户个人信息&密码表单
  * 
  * @author K
  */

@@ -19,7 +19,7 @@ import com.coffee.util.ConnectionContext;
 
 /**
  * @ClassName: OrderDetailVODaoImpl
- * @Description:DAO层,IOrderDetailVODao的实现类，提供基本的CRUD（增删改）功能。
+ * @Description:DAO层,IOrderDetailVODao的实现类，提供了item表与order_detail表的多表连接查询功能，提供更详细的订单信息；插入/更新/删除原则上不应该使用
  * 
  * @author: K
  */
@@ -35,16 +35,4 @@ public class OrderDetailVODaoImpl implements IOrderDetailVODao {
 		return (List<OrderDetailVO>) qr.query(ConnectionContext.getInstance().getConnection(), sql, orderId,
 				new BeanListHandler<OrderDetailVO>(OrderDetailVO.class, processor));
 	}
-
-	@Override
-	public List<OrderDetailVO> findByItemId(int itemId) throws SQLException {
-		QueryRunner qr = new QueryRunner();
-		BeanProcessor bean = new GenerousBeanProcessor();
-		RowProcessor processor = new BasicRowProcessor(bean);
-		String sql = "select * from `order_detail` inner join `item` on `order_detail`.item_id=`item`.item_id where item_id=?";
-
-		return (List<OrderDetailVO>) qr.query(ConnectionContext.getInstance().getConnection(), sql, itemId,
-				new BeanListHandler<OrderDetailVO>(OrderDetailVO.class, processor));
-	}
-
 }

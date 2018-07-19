@@ -18,7 +18,7 @@ import com.coffee.util.ConnectionContext;
 
 /**
  * @ClassName: ShoppingcartItemVODaoImpl
- * @Description:DAO层,IShoppingcartItemVODao的实现类，提供基本的CRUD（增删改）功能。
+ * @Description:DAO层,IShoppingcartItemVODao的实现类，提供了查询shoppingcart_item表与item表的多表连接的结果，提供更详细的购物车内的餐点的信息
  * 
  * @author: K
  */

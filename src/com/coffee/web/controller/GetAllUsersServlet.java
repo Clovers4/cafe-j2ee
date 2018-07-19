@@ -16,7 +16,7 @@ import com.coffee.service.IUserService;
 import com.coffee.service.impl.UserServiceImpl;
 
 /**
- * 之前用来做无分页的用户管理，已弃用
+ * 获取一个包含所有User的列表，之前用来做无分页的用户管理，已弃用
  * 
  * @author K
  */

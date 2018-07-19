@@ -9,17 +9,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coffee.domain.Item;
 import com.coffee.domain.Page;
-import com.coffee.service.IBaseService;
+import com.coffee.service.IPageService;
 
 /**
  * 包含请求Page（分页结果）的通用代码，负责提供一个相关Page给Servlet再提供给前端
+ * 
+ * 由于Service层对Page对象进行了基本设置，但是没有设置当前页数，页面支持的个数等参数，所以需要一个工具类更方便地处理
  * 
  * @author K
  */
 public class PageUtils {
 
+	/**
+	 * 非特征搜索的分页搜索
+	 * 
+	 * @param request
+	 * @param response
+	 * @param pageSize
+	 * @param service
+	 * @return Page<T>
+	 * @throws SQLException
+	 */
 	public static <T> Page<T> getPage(HttpServletRequest request, HttpServletResponse response, int pageSize,
-			IBaseService<T> service) throws SQLException {
+			IPageService<T> service) throws SQLException {
 		int currentPage = getCurrentPage(request);
 		int begin = (currentPage - 1) * pageSize; // 计算每页的开头
 
@@ -31,8 +43,19 @@ public class PageUtils {
 		return page;
 	}
 
+	/**
+	 * 根据T的特征进行分页搜索
+	 * 
+	 * @param request
+	 * @param response
+	 * @param pageSize
+	 * @param service
+	 * @param t
+	 * @return Page<T>
+	 * @throws SQLException
+	 */
 	public static <T> Page<T> getPage(HttpServletRequest request, HttpServletResponse response, int pageSize,
-			IBaseService<T> service, T t) throws SQLException {
+			IPageService<T> service, T t) throws SQLException {
 		int currentPage = getCurrentPage(request);
 		int begin = (currentPage - 1) * pageSize; // 计算每页的开头
 
@@ -45,7 +68,7 @@ public class PageUtils {
 	}
 
 	/**
-	 * 从request中提取要访问的页数
+	 * 从request中提取要访问的页数,若没有参数，自动定位到第一页
 	 * 
 	 * @param request
 	 * @return
@@ -73,7 +96,8 @@ public class PageUtils {
 
 	/**
 	 * 这是request请求的URI,即"被请求"的方的地址
-	 * 利用这个URL，可以在JSP中直接使用page.url来完成超链接，与使用完整路径来访问GetUsersPageServlet等是相同的功能
+	 * 利用这个URL，可以在JSP中直接使用page.url来完成超链接，与使用完整路径来访问GetUsersPageServlet等是相同的功能,
+	 * 但是这样做可以使得页面中的代码更有一致性
 	 */
 	private static String getURL(HttpServletRequest request) {
 		String contextPath = request.getContextPath(); // 项目名

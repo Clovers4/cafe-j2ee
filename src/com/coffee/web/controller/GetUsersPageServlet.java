@@ -31,17 +31,17 @@ public class GetUsersPageServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------GetUsersPageServlet work start-----------");
 		try {
+			// 从request中直接读取信息，来获取page
 			Page<User> page = PageUtils.getPage(request, response, 5, userService);
+			System.out.println("Get UsersPage:" + page);
+			//回显
 			request.setAttribute("usersPage", page);
-			System.out.println("Get UsersPage:"+page);
 			request.getRequestDispatcher("/pages/admin/manage-users.jsp").forward(request, response);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 		System.out.println("------------GetUsersPageServlet work finished-----------");
 	}
-
-	
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

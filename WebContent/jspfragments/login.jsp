@@ -7,6 +7,7 @@
 <title>Login</title>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 
 <!-- 用户/管理员登录 -->
 </head>

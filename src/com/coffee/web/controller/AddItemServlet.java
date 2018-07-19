@@ -21,12 +21,10 @@ import com.coffee.util.WebUtils;
 import com.coffee.web.formbean.AddItemFormBean;
 
 /**
- * 处理添加商品的Servlet
+ * 添加餐点到数据库
  * 
  * @author K
- *
  */
-
 @WebServlet(name = "AddItemServlet", urlPatterns = "/servlet/addItemServlet")
 public class AddItemServlet extends HttpServlet {
 	private IItemService itemService = new ItemServiceImpl();
@@ -43,22 +41,22 @@ public class AddItemServlet extends HttpServlet {
 			// 将封装了表单数据的formBean对象发送回form表单中进行显示
 			request.setAttribute("addItemFormBean", formBean);
 			// 校验失败就说明是用户填写的表单数据有问题，那么就跳转刚才的页面
-
 			request.setAttribute("addItemError", "未全部填写/填写内容不符合要求！！");
 			request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
 			return;
 		}
-
-		// 表单数据拷贝
+		
+		// FormBean转PO,并进行添加工作
 		Item item = new Item();
-		// FormBean转domain
 		try {
-			ConvertUtils.register(new DateLocaleConverter(), Date.class);// 注册字符串到日期的转换器
+			// 注册字符串到日期的转换器
+			ConvertUtils.register(new DateLocaleConverter(), Date.class);
+			// 表单数据拷贝到domain中
 			BeanUtils.copyProperties(item, formBean);
 			System.out.println(item);
 
 			itemService.add(item);
-
+			//回显
 			request.setAttribute("operateSuccess", "修改成功！！");
 			request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
 		} catch (Exception e) {

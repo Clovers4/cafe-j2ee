@@ -77,9 +77,9 @@ public class ItemDaoImpl implements IItemDao {
 		QueryRunner qr = new QueryRunner();
 		BeanProcessor bean = new GenerousBeanProcessor();
 		RowProcessor processor = new BasicRowProcessor(bean);
-		String sql = "select * from `item` where name=?";
+		String sql = "select * from `item` where name like ?";
 
-		return (List<Item>) qr.query(ConnectionContext.getInstance().getConnection(), sql, name,
+		return (List<Item>) qr.query(ConnectionContext.getInstance().getConnection(), sql,"%"+name+"%",
 				new BeanListHandler<Item>(Item.class, processor));
 	}
 

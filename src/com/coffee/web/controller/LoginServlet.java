@@ -17,8 +17,15 @@ import com.coffee.util.WebUtils;
 import com.coffee.web.formbean.LoginFormBean;
 import com.coffee.web.formbean.RegisterFormBean;
 
+/**
+ * 登录操作，保存session信息
+ * 
+ * @author K
+ */
 @WebServlet(name = "LoginServlet", urlPatterns = "/servlet/loginServlet")
 public class LoginServlet extends HttpServlet {
+	private IAdminService adminService = new AdminServiceImpl();
+	private IUserService userService = new UserServiceImpl();
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 将客户端提交的表单数据封装到LoginFormBean对象中
@@ -26,11 +33,11 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("------------LoginServlet work start-----------");
 		System.out.println(formBean);
 
-		//先登出，再登录
+		// 先登出，再登录
 		userLogout(request, response);
 		adminLogout(request, response);
 
-		//登录操作
+		// 登录操作
 		boolean isLogin = false;
 		if (formBean.getStatus().equals("user")) {
 			isLogin = userLogin(request, response, formBean);
@@ -38,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 			isLogin = adminLogin(request, response, formBean);
 		}
 
-		//判断是否正确登录
+		// 判断是否正确登录
 		if (isLogin == true) {
 			sendAutoLoginCookie(request, response, formBean);// 发送自动登陆cookie给客户端浏览器进行存储
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -64,10 +71,12 @@ public class LoginServlet extends HttpServlet {
 			// 创建cookie,名字是autologin，值是用户登录的用户名和密码，用户名和密码之间使用.进行分割，密码明文，方便查错且非正规网站，就不做加密处理了
 			Cookie cookie = new Cookie("autologin",
 					formBean.getAccount() + "." + formBean.getPassword() + "." + formBean.getStatus());
-
-			cookie.setMaxAge(logintime);// 设置cookie的有效期
-			cookie.setPath(request.getContextPath());// 设置cookie的有效路径
-			response.addCookie(cookie);// 将cookie写入到客户端浏览器
+			// 设置cookie的有效期
+			cookie.setMaxAge(logintime);
+			// 设置cookie的有效路径
+			cookie.setPath(request.getContextPath());
+			// 将cookie写入到客户端浏览器
+			response.addCookie(cookie);
 		}
 	}
 
@@ -83,10 +92,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	private boolean userLogin(HttpServletRequest request, HttpServletResponse response, LoginFormBean formBean)
 			throws ServletException, IOException {
-		IUserService service = new UserServiceImpl();
 		User user = null;
 		try {
-			user = service.login(formBean.getAccount(), formBean.getPassword());
+			user = userService.login(formBean.getAccount(), formBean.getPassword());
 			System.out.println(user);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -126,10 +134,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	private boolean adminLogin(HttpServletRequest request, HttpServletResponse response, LoginFormBean formBean)
 			throws ServletException, IOException {
-		IAdminService service = new AdminServiceImpl();
 		Admin admin = null;
 		try {
-			admin = service.login(formBean.getAccount(), formBean.getPassword());
+			admin = adminService.login(formBean.getAccount(), formBean.getPassword());
 			System.out.println(admin);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

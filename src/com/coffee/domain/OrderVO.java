@@ -1,5 +1,10 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:VO，字段对应order表与user表，通过user_id获取/显示user的account
+ * 
+ * @author K
+ */
 import java.util.Date;
 
 public class OrderVO {

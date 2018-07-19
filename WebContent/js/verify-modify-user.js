@@ -42,7 +42,7 @@ $(document).ready(function() {
 			fail($("#modified-password-div"), '密码太短，不能少于8个字符');
 			checkModifiedPassword = false;
 		} else {
-			if (atLeastTwo(password) < 2) {
+			if (atLeastTwo(modifyPassword) < 2) {
 				fail($("#modified-password-div"), '密码中至少包含字母、数字、特殊字符的两种');
 				checkModifiedPassword = false;
 			} else {
@@ -78,7 +78,6 @@ $(document)
 var regTel = /^[0-9]{11}$/;
 var checkModifiedTel = true;
 $(document).ready(function() {
-
 	$('#modified-tel-div').find("#modified-tel").change(function() {
 		if (regTel.test($(this).val())) {
 			success($("#modified-tel-div"));

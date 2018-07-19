@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 用户未登录（未携带session）的情况，拒绝进入需要登录才能操作的页面
+ * 用户未登录（未携带session）的情况，拒绝进入某些页面(需要用户登录才能操作的页面)
  * 
  * @author K
  */

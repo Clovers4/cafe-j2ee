@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 接收item.jsp中的购物信息表单
+ * 封装购物车商品数据修改的表单
  * 
  * @author K
  */

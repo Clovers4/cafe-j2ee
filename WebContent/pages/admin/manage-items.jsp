@@ -7,19 +7,9 @@
 <title>☆☆卡布奇诺咖啡馆☆☆</title>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link
-	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
-<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script
-	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/js/verify-add-item.js"></script>
 </head>
 <body>
-
 	<!-- 无itemsPage且没有操作失败,进入时，重新请求getUsersPagesServlet -->
 	<c:if
 		test="${empty itemsPage and empty operateSuccess and empty operateError}">
@@ -28,15 +18,15 @@
 		</script>
 	</c:if>
 
+	<!-- 网页头部 -->
+	<jsp:include page="/jspfragments/header.jsp" />
+	
 	<!-- 增删改弹框引入 -->
-	<jsp:include page="/jspfragments/item/add.jsp" />
+	<jsp:include page="/jspfragments/item/add-item.jsp" />
 	<jsp:include page="/jspfragments/item/add-image.jsp" />
 	<jsp:include page="/jspfragments/item/modify.jsp" />
 	<jsp:include page="/jspfragments/item/delete.jsp" />
-
-	<!-- 网页头部 -->
-	<jsp:include page="/jspfragments/header.jsp" />
-
+ 
 	<!-- 网页正文 -->
 	<br />
 
@@ -92,7 +82,7 @@
 						</div>
 						<div class="pull-right">
 							<button class="btn btn-primary" data-toggle="modal"
-								data-target="#add-item"">
+								data-target="#add-item">
 								<span class="glyphicon glyphicon-plus"></span>新&nbsp;增
 							</button>
 							<button class="btn btn-success"
@@ -131,7 +121,7 @@
 											</button>
 										</form></td>
 									<td>
-										<form method="post">
+										<form  method="post">
 											<input type="hidden" name="modify" value="1" /> <input
 												type="hidden" name="itemId" value="${item.itemId}" /><input
 												type="hidden" name="name" value="${item.name}" /> <input

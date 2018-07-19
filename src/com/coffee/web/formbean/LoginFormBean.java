@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 封装用户登录表单bean，用来接收login.jsp(header.jsp)中的表单输入项的值,
- * LoginFormBean中的属性与login.jsp(header.jsp)中的表单输入项的name一一对应,
- * LoginFormBean的职责除了负责接收register.jsp中的表单输入项的值之外还担任着校验表单输入项的值的合法性
+ * 封装用户登录表单bean
  * 
  * @author K
  *

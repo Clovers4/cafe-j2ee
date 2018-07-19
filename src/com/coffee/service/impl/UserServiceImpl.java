@@ -13,7 +13,7 @@ import com.coffee.service.IUserService;
 
 /**
  * @InterfaceName: UserServiceImpl
- * @Description:Service层,IUserService的实现类，提供用户登录，注册等服务。
+ * @Description:Service层,IUserService的实现类，提供用户登录，注册，修改信息，删除，获取User的分页对象，检查账号是否存在等服务。
  * 
  * @author: K
  */

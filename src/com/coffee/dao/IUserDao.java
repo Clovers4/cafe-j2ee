@@ -12,11 +12,11 @@ import com.coffee.domain.*;
  * @author: K
  */
 public interface IUserDao {
-
 	/**
-	 * 查找所有用户
+	 * 返回所有用户(List)
 	 * 
-	 * @return 所有用户
+	 * @return List<User> 
+	 * @throws SQLException
 	 */
 	List<User> findALL() throws SQLException;
 
@@ -25,45 +25,50 @@ public interface IUserDao {
 	 * 
 	 * @param begin
 	 * @param pageSize
-	 * @return
+	 * @return List<User>
 	 * @throws SQLException
 	 */
 	List<User> find(int begin, int pageSize) throws SQLException;
 
 	/**
-	 * 根据用户名来查找用户
+	 * 根据用户名来查找用户，返回用户对象
 	 * 
 	 * @param account
-	 * @return 查到的用户
+	 * @return User
+	 * @throws SQLException
 	 */
 	User find(String account) throws SQLException;
 
 	/**
-	 * 通过id来查找
+	 * 通过id来查找用户，返回用户对象
+	 * 
 	 * @param userId
-	 * @return
+	 * @return User
 	 * @throws SQLException
 	 */
 	User findById(int userId) throws SQLException;
 
 	/**
-	 * 添加用户
+	 * 向user表插入一条数据
 	 * 
 	 * @param user
+	 * @throws SQLException
 	 */
 	void insert(User user) throws SQLException;
 
 	/**
-	 * 修改用户信息
+	 * 修改user表中的一条数据
 	 * 
 	 * @param user
+	 * @throws SQLException
 	 */
 	void update(User user) throws SQLException;
 
 	/**
-	 * 删除用户
+	 * 根据用户名（Unique），删除user表中的一条数据
 	 * 
 	 * @param account
+	 * @throws SQLException
 	 */
 	void delete(String account) throws SQLException;
 }

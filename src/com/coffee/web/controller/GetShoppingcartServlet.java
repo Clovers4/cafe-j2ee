@@ -27,23 +27,27 @@ public class GetShoppingcartServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------GetShoppingcartServlet work start-----------");
+
+		// 从session中读取user
 		User user = (User) request.getSession().getAttribute("user");
 		int userId = user.getUserId();
+
+		// 获取该用户的购物车信息
 		List<ShoppingcartItemVO> items = null;
 		try {
 			items = service.get(userId);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-
 		System.out.println("items:" + items);
 
-		// 总价
+		// 购物车总价
 		double total = 0;
 		for (ShoppingcartItemVO item : items) {
 			total += item.getPrice() * item.getNumber();
 		}
-
+		
+		// 回显
 		request.setAttribute("total", total);
 		request.setAttribute("items", items);
 		request.getRequestDispatcher("/pages/user/shoppingcart.jsp").forward(request, response);

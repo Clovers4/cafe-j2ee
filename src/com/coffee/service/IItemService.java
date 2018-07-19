@@ -12,7 +12,7 @@ import com.coffee.domain.Page;
  * 
  * @author: K
  */
-public interface IItemService extends IBaseService<Item> {
+public interface IItemService extends IPageService<Item> {
 	/**
 	 * 提供添加服务
 	 * 

@@ -12,10 +12,10 @@ import javax.servlet.http.*;
  * RegisterUIServlet负责为用户输出注册界面
  * 当用户访问RegisterUIServlet时，就跳转到WEB-INF/pages目录下的register.jsp页面
  * 
+ * 实际上没有用到
+ * 
  * @author K
  */
-
-
 @WebServlet(name ="RegisterUIServlet",urlPatterns = "/register")
 public class RegisterUIServlet extends HttpServlet {
 

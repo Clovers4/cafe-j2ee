@@ -9,29 +9,32 @@ import com.coffee.domain.ShoppingcartItem;
 
 /**
  * @InterfaceName: IShoppingcartItemService
- * @Description:Service层接口，提供添加商品，修改，删除等服务。
+ * @Description:Service层接口，提供将餐点添加到购物车 / 修改餐点数量（更新）/ 从购物车中删除该餐点 / 得到所有用户购物车餐点列表
+ *                                     / 得到某个用户购物车餐点列表/ 得到某个用户的购物车总金额/
+ *                                     获取某个ShoppingcartItem对象/
+ *                                     检查某用户购物车内是否已经存在某商品 等功能
  * 
  * @author: K
  */
 public interface IShoppingcartItemService {
 	/**
-	 * 提供添加服务
+	 * 向购物车中添加一个商品
 	 * 
 	 * @param item
+	 * @throws SQLException
 	 */
 	void add(ShoppingcartItem item) throws Exception;
 
 	/**
-	 * 提供更新商品数据服务
+	 * 更新购物车中商品的信息(数量)
 	 * 
 	 * @param item
-	 * 
 	 * @throws SQLException
 	 */
 	void update(ShoppingcartItem item) throws SQLException;
 
 	/**
-	 * 删除商品
+	 * 通过userId和itemId，来移除某用户购物车中的某个商品
 	 * 
 	 * @param itemId
 	 * @throws SQLException
@@ -39,7 +42,7 @@ public interface IShoppingcartItemService {
 	void delete(int userId, int itemId) throws SQLException;
 
 	/**
-	 * 得到全部item
+	 * 得到所有用户购物车餐点列表
 	 * 
 	 * @throws SQLException
 	 */
@@ -51,7 +54,7 @@ public interface IShoppingcartItemService {
 	 * @throws SQLException
 	 */
 	List<ShoppingcartItem> get(int userId) throws SQLException;
-	
+
 	/**
 	 * 得到某个用户的购物车中总金额
 	 * 
@@ -62,19 +65,19 @@ public interface IShoppingcartItemService {
 	double sumTotalMoney(int userId) throws SQLException;
 
 	/**
-	 * 根据itemId来查找
+	 * 根据itemId和userId,来获得一个ShoppingcartItem
 	 * 
 	 * @param itemId
-	 * @return
+	 * @return ShoppingcartItem
 	 * @throws SQLException
 	 */
 	ShoppingcartItem get(int userId, int itemId) throws SQLException;
 
 	/**
-	 * 查询该商品是否存在
+	 * 根据itemId和userId，来检查某用户购物车内是否已经存在某商品
 	 * 
 	 * @param itemId
-	 * @return
+	 * @return true/false
 	 * @throws SQLException
 	 */
 	boolean checkExist(int userId, int itemId) throws SQLException;

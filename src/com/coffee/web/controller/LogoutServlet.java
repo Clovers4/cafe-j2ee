@@ -6,6 +6,11 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+/**
+ * 登录操作，删除session信息，移除自动登录cookie
+ * 
+ * @author K
+ */
 @WebServlet(name = "LogoutServlet", urlPatterns = "/servlet/logoutServlet")
 public class LogoutServlet extends HttpServlet {
 
@@ -30,9 +35,13 @@ public class LogoutServlet extends HttpServlet {
 	 * @param response
 	 */
 	private void removeAutoLoginCookie(HttpServletRequest request, HttpServletResponse response) {
-		Cookie cookie = new Cookie("autologin", "");// 创建一个名字为autologin的cookie
-		cookie.setMaxAge(0);// 将cookie的有效期设置为0，命令浏览器删除该cookie
-		cookie.setPath(request.getContextPath());// 设置要删除的cookie的path
+		// 创建一个名字为autologin的cookie
+		Cookie cookie = new Cookie("autologin", "");
+		// 将cookie的有效期设置为0，命令浏览器删除该cookie
+		cookie.setMaxAge(0);
+		// 设置要删除的cookie的path
+		cookie.setPath(request.getContextPath());
+		//添加到response中，由于有效期为0，起到删除效果
 		response.addCookie(cookie);
 	}
 

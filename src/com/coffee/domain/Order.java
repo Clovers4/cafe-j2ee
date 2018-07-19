@@ -2,6 +2,11 @@ package com.coffee.domain;
 
 import java.util.Date;
 
+/**
+ * JavaBean:PO，字段对应order表
+ * 
+ * @author K
+ */
 public class Order {
 	private int orderId;
 	private int userId;

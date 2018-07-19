@@ -1,5 +1,10 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:VO，字段对应item表与order_detail表，利用order_detail表来获得某餐点的点餐次数百分比
+ * 
+ * @author K
+ */
 public class ItemHeatVO {
 	private String name;
 	private String type;

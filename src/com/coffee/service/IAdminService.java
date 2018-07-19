@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import com.coffee.domain.Admin;
 
-
 /**
  * @InterfaceName: IAdminService
  * @Description:Service层接口，提供管理员户登录等服务。
@@ -13,13 +12,13 @@ import com.coffee.domain.Admin;
  */
 public interface IAdminService {
 	/**
+	 * 管理员登录,如果账号存在且密码匹配，则返回Admin对象实体
 	 * 
-     * 提供登录服务
 	 * @param account
 	 * @param password
-	 * @return
+	 * @return Admin
 	 * @throws SQLException
 	 */
-    Admin login(String account, String password) throws SQLException;
+	Admin login(String account, String password) throws SQLException;
 
 }

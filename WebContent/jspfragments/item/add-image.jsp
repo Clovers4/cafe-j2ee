@@ -7,10 +7,20 @@
 <title>Insert title here</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<link
+	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <script src="${pageContext.request.contextPath}/js/fileinput.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/zh.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/fileinput.min.css">
+
+
 </head>
 <body>
 
@@ -31,8 +41,9 @@
 
 				<!-- 表单 -->
 				<div class="modal-body">
-					<form action="${pageContext.request.contextPath}/servlet/uploadItemImageServlet"
-						 enctype="multipart/form-data"  method="post">
+					<form
+						action="${pageContext.request.contextPath}/servlet/uploadItemImageServlet"
+						enctype="multipart/form-data" method="post">
 						<div class="form-group has-feedback">
 							<label for="item-itemId">ID</label>
 							<div class="input-group">
@@ -43,23 +54,24 @@
 							</div>
 						</div>
 
-						<div class="form-group has-feedback" >
+						<div class="form-group has-feedback">
 							<label for="item-name">名称</label>
 							<div class="input-group">
 								<span class="input-group-addon"><span
-									class="glyphicon glyphicon-leaf"></span></span> <input
-									id="item-name" name="name" class="form-control"
-									readonly="readonly" type="text" value="${param.name}">
+									class="glyphicon glyphicon-leaf"></span></span> <input id="item-name"
+									name="name" class="form-control" readonly="readonly"
+									type="text" value="${param.name}">
 							</div>
 						</div>
 
-						<div class="form-group has-feedback" >
+						<div class="form-group has-feedback">
 							<label for="item-image-url">图片URL</label>
 							<div class="input-group">
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-barcode"></span></span> <input
-									id="item-image-url" name="imageUrl" class="file"  data-show-preview="false" 
-									 type="file" data-show-upload="false" data-allowed-file-extensions='["jpg","png","gif","bmp"]'>
+									id="item-image-url" name="imageUrl" class="file"
+									data-show-preview="false" type="file" data-show-upload="false"
+									data-allowed-file-extensions='["jpg","png","gif","bmp"]'>
 							</div>
 						</div>
 

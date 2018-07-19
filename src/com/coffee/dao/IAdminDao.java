@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.coffee.domain.Admin;
 
-
 /**
  * @InterfaceName: IAdminDao
  * @Description:DAO层接口，提供基本的CRUD（增删改）功能。
@@ -13,12 +12,11 @@ import com.coffee.domain.Admin;
  * @author: K
  */
 public interface IAdminDao {
-
 	/**
-	 * 查找所有管理员
+	 * 获得一个包含所有管理员的List
 	 * 
-	 * @param account
-	 * @return 所有管理员
+	 * @return
+	 * @throws SQLException
 	 */
 	List<Admin> findALL() throws SQLException;
 

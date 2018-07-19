@@ -30,19 +30,20 @@ public class GetOrderDetailServlet extends HttpServlet {
 
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
 		try {
+			//通过orderId，来获取一个该订单中的小件详情.
 			List<OrderDetailVO> list = orderService.getOrderDetailVOByOrderId(orderId);
 			System.out.println(list);
 			
-			// 总价
+			// 获取订单总价
 			double total = 0;
 			for (OrderDetailVO item : list) {
 				total += item.getPrice() * item.getNumber();
 			}
 
+			//回显
 			request.setAttribute("total", total);
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("/servlet/getHistoryOrdersPageServlet").forward(request, response);
-
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

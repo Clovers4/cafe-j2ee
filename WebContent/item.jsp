@@ -11,7 +11,7 @@
 <script src="${pageContext.request.contextPath}/js/item.js"></script>
 <style>
 #item img {
-	width: 600px;
+	width: 550px;
 }
 </style>
 

@@ -31,9 +31,11 @@ public class GetItemsPageServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------GetItemsPageServlet work start-----------");
 		try {
+			// 根据request中的必要参数，就能获得page。
 			Page<Item> page = PageUtils.getPage(request, response, 5, itemService);
+			System.out.println("Get ItemsPage:" + page);
+			//回显
 			request.setAttribute("itemsPage", page);
-			System.out.println("Get ItemsPage:"+page);
 			request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

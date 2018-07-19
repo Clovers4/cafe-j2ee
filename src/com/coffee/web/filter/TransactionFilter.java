@@ -12,6 +12,7 @@ import com.coffee.util.*;
 /**
  * @ClassName: TransactionFilter
  * @Description:ThreadLocal + Filter 统一处理数据库事务。负责Connection的获取和释放，事务的开启，提交，回滚。
+ *                          使得Service不必为Dao层管理连接，专注于业务。Dao层也可以直接获得连接.
  * @author: K
  */
 /*
@@ -31,7 +32,7 @@ public class TransactionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		//System.out.println("TransactionFilter.doFilter()---started---;");
+		// System.out.println("TransactionFilter.doFilter()---started---;");
 		Connection connection = null;
 		try {
 			// 1、获取数据库连接对象Connection
@@ -47,7 +48,7 @@ public class TransactionFilter implements Filter {
 			chain.doFilter(request, response);
 
 			// 5、提交事务
-			//System.out.println("-----commit-----");
+			// System.out.println("-----commit-----");
 			connection.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,14 +61,14 @@ public class TransactionFilter implements Filter {
 			}
 
 			// 出现异常之后跳转到错误页面
-			/*
-			 * HttpServletRequest req = (HttpServletRequest) request; HttpServletResponse
-			 * res = (HttpServletResponse) response; req.setAttribute("errMsg",
-			 * e.getMessage()); req.getRequestDispatcher("/error.jsp").forward(req, res);
-			 * res.sendRedirect(req.getContextPath() + "/error.jsp");
-			 */
+			HttpServletRequest req = (HttpServletRequest) request;
+			HttpServletResponse res = (HttpServletResponse) response;
+			req.setAttribute("message", e.getMessage());
+			req.getRequestDispatcher("/message.jsp").forward(req, res);
+			// res.sendRedirect(req.getContextPath() + "/message.jsp");
+
 		} finally {
-			//System.out.println("TransactionFilter.doFilter()---finished---;");
+			// System.out.println("TransactionFilter.doFilter()---finished---;");
 			// 7、解除绑定
 			ConnectionContext.getInstance().remove();
 			// 8、关闭数据库连接

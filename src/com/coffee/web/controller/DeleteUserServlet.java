@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.coffee.service.IUserService;
 import com.coffee.service.impl.UserServiceImpl;
 
+/**
+ * 移除一个User
+ * 
+ * @author K
+ */
 @WebServlet(name = "DeleteUserServlet", urlPatterns = "/servlet/deleteUserServlet")
 public class DeleteUserServlet extends HttpServlet {
 	private IUserService userService = new UserServiceImpl();

@@ -17,7 +17,7 @@ import com.coffee.util.ConnectionContext;
 
 /**
  * @ClassName: OrderVODaoImpl
- * @Description:DAO层,IOrderVODao的实现类，提供基本的CRUD（增删改）功能。
+ * @Description:DAO层,IOrderVODao的实现类，提供了order表与user表的多表连接查询功能，因为order表提供了user_id，但是缺少account。
  * 
  * @author: K
  */

@@ -98,34 +98,35 @@
 	<div class="container items">
 		<div class="row">
 			<div class="col-xs-4 ">
-				<img
-					src="${pageContext.request.contextPath}/images/index/peach-in-peach-frappuccino-blended-juice-drink.png"
+				<a href="${pageContext.request.contextPath}/servlet/getItemServlet?itemId=13"> <img
+					src="${pageContext.request.contextPath}/images/index/iced-shaken-mango-herbal-juiced-tea.png"
 					class="img-circle">
-				<div class="caption">
-					<div class="text-muted">
-						<br />桃桃星冰乐®
-					</div>
-				</div>
+					<div class="caption">
+						<div class="text-muted">
+							<br />冰摇红莓黑加仑茶®
+						</div>
+					</div></a>
+			</div>
+
+			<div class="col-xs-4 ">
+				<a href="${pageContext.request.contextPath}/servlet/getItemServlet?itemId=17"> <img
+					src="${pageContext.request.contextPath}/images/index/macaron.png"
+					class="img-circle">
+					<div class="caption">
+						<div class="text-muted">
+							<br />法式马卡龙
+						</div>
+					</div></a>
 			</div>
 			<div class="col-xs-4 ">
-				<img
-					src="${pageContext.request.contextPath}/images/index/iced-coffe-blend.png"
+				<a href="${pageContext.request.contextPath}/servlet/getItemServlet?itemId=15"> <img
+					src="${pageContext.request.contextPath}/images/index/vanilla-flavored-cream-frappuccino-blended-beverage.png"
 					class="img-circle">
-				<div class="caption">
-					<div class="text-muted">
-						<br />花榭清风综合咖啡豆
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-4 ">
-				<img
-					src="${pageContext.request.contextPath}/images/index/teavana-matcha-mousse-cake.png"
-					class="img-circle">
-				<div class="caption">
-					<div class="text-muted">
-						<br />茶瓦纳抹茶慕斯蛋糕
-					</div>
-				</div>
+					<div class="caption">
+						<div class="text-muted">
+							<br />香草风味星冰乐
+						</div>
+					</div></a>
 			</div>
 		</div>
 	</div>

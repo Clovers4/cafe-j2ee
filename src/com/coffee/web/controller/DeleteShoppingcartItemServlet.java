@@ -20,9 +20,7 @@ import com.coffee.web.formbean.ShoppingcartItemFormBean;
  * 移除购物车中的商品
  * 
  * @author K
- *
  */
-
 @WebServlet(name = "DeleteShoppingcartItemServlet", urlPatterns = "/servlet/deleteShoppingcartItemServlet")
 public class DeleteShoppingcartItemServlet extends HttpServlet {
 	private IShoppingcartItemService service = new ShoppingcartItemServiceImpl();

@@ -2,6 +2,11 @@ package com.coffee.domain;
 
 import java.io.Serializable;
 
+/**
+ * JavaBean:PO，字段对应User表
+ * 
+ * @author K
+ */
 public class User implements Serializable{
 	private static final long serialVersionUID = 2922978284091657099L;
 	

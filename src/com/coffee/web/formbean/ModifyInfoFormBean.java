@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 封装用户修改信息表单bean，用来接收user/modify-info.jsp中的注册表单输入项的值
- * RegisterFormBean中的属性与user/modify-info.jsp中的表单输入项一一对应
- * RegisterFormBean还需要进行后端验证
+ * 封装用户修改个人信息表单
  * 
  * @author K
  */

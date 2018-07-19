@@ -4,7 +4,7 @@ import java.sql.Connection;
 
 /**
  * @ClassName: ConnectionContext
- * @Description:数据库连接工具,用于将一个Connecion绑定到ThreadLocal上，使DAO层可直接通过该类获取正在进行中的事务的Connection。
+ * @Description:数据库连接工具,用于将一个Connecion绑定到ThreadLocal上，使DAO层可直接通过该类获取正在进行中的事务的Connection,Service层也不需要为DAO层开关事务，可以专注于业务处理。
  * @author: K
  */
 public class ConnectionContext {

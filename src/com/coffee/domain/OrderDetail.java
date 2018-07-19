@@ -1,5 +1,10 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:PO，字段对应order_detail表
+ * 
+ * @author K
+ */
 public class OrderDetail {
 	private int orderId;
 	private int itemId;

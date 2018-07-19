@@ -1,5 +1,10 @@
 package com.coffee.domain;
 
+/**
+ * JavaBean:PO，字段对应shoppingcart_item表与item表，获取更详细的购物车餐点信息
+ * 
+ * @author K
+ */
 public class ShoppingcartItemVO {
 	private int itemId;
 	private String name;

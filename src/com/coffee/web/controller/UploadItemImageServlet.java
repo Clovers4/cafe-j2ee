@@ -18,9 +18,8 @@ import com.coffee.service.impl.ItemServiceImpl;
  * @ClassName: UploadHandleServlet
  * @Description: 用于上传商品图片，并将URL传入数据库中
  * 
- * @author: K=
+ * @author: K
  */
-
 @WebServlet(name = "UploadItemImageServlet", urlPatterns = "/servlet/uploadItemImageServlet")
 public class UploadItemImageServlet extends HttpServlet {
 	private IItemService itemService = new ItemServiceImpl();
@@ -29,25 +28,36 @@ public class UploadItemImageServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("------------UploadItemImageServlet work start-----------");
 
+		//上传图片，同时更新数据库中图片的url
 		try {
 			uploadImage(request, response);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		
+		//回显
 		request.getRequestDispatcher("/pages/admin/manage-items.jsp").forward(request, response);
+		
 		System.out.println("------------UploadItemImageServlet work finished-----------");
 	}
 
 	private void uploadImage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
+		//获取实际的保存地址
 		String savePath = this.getServletContext().getRealPath("/images/item");
+		File savePathFile = new File(savePath);
+		if (!savePathFile.exists()) {
+			savePathFile.mkdir();
+		}
+		
 		// 上传时生成的临时文件保存目录
 		String tempPath = this.getServletContext().getRealPath("/WEB-INF/temp");
-		int itemId = 0;
 		File tmpFile = new File(tempPath);
 		if (!tmpFile.exists()) {
 			tmpFile.mkdir();
 		}
+
+		int itemId = 0;
 		String imageUrl = "";
 		try {
 			// 使用Apache文件上传组件处理文件上传步骤：

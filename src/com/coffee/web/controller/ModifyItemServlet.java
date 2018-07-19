@@ -1,6 +1,7 @@
 package com.coffee.web.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -30,24 +31,37 @@ public class ModifyItemServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ModifyItemFormBean formBean = WebUtils.requestToBean(request, ModifyItemFormBean.class);
 		System.out.println("------------ModifyItemServlet work start-----------");
+		//读取表单数据
+		ModifyItemFormBean formBean = WebUtils.requestToBean(request, ModifyItemFormBean.class);
 		System.out.println(formBean);
+		
+		//检验表单数据
 		if (formBean.validate() == false) {
 			throw new RuntimeException("商品信息修改表单有误.");
 		}
-		modify(request, response, formBean);
+		
+		//修改商品信息
+		try {
+			modify(request, response, formBean);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		//回显
 		request.setAttribute("operateSuccess", "修改成功！！");
 		request.getRequestDispatcher("/servlet/getItemsPageServlet").forward(request, response);
-
 	}
 
-	private void modify(HttpServletRequest request, HttpServletResponse response, ModifyItemFormBean formBean) throws ServletException, IOException {
-		Item item = new Item();
+	private void modify(HttpServletRequest request, HttpServletResponse response, ModifyItemFormBean formBean) throws ServletException, IOException, SQLException {
+		//通过itemId读取item的原始数据
+		Item item = itemService.get(formBean.getItemId());
 		try {
-			ConvertUtils.register(new DateLocaleConverter(), Date.class);// 注册字符串到日期的转换器
+			//拷贝信息，覆盖原始数据(null字段不会覆盖掉原始数据)
 			BeanUtils.copyProperties(item, formBean);
 			System.out.println(item);
+			
+			//更新
 			itemService.update(item);
 		} catch (Exception e) {
 			request.setAttribute("operateError", "操作失败！！");

@@ -12,11 +12,10 @@ import java.util.List;
  * @author: K
  */
 public interface IItemDao {
-
 	/**
 	 * 返回一个包含所有Item的List
 	 * 
-	 * @return
+	 * @return List<Item>
 	 * @throws SQLException
 	 */
 	List<Item> findAll() throws SQLException;
@@ -26,17 +25,17 @@ public interface IItemDao {
 	 * 
 	 * @param begin
 	 * @param pageSize
-	 * @return
+	 * @return List<Item>
 	 * @throws SQLException
 	 */
 	List<Item> find(int begin, int pageSize) throws SQLException;
 
 	/**
-	 * 根据特征（搜索），全部查找,
+	 * 根据特征（搜索），全部查找,返回List
 	 * 
 	 * @param begin
 	 * @param pageSize
-	 * @return
+	 * @return List<Item>
 	 * @throws SQLException
 	 */
 	List<Item> find(Item item) throws SQLException;
@@ -47,16 +46,16 @@ public interface IItemDao {
 	 * 
 	 * @param begin
 	 * @param pageSize
-	 * @return
+	 * @return List<Item>
 	 * @throws SQLException
 	 */
 	List<Item> find(Item item,int begin, int pageSize) throws SQLException;
 
 	/**
-	 * 根据商品名来查找，可能有重复
+	 * 根据商品名关键词来查找，返回一个包含该关键词的List<Item>
 	 * 
 	 * @param account
-	 * @return 查到的商品list
+	 * @return List<Item>
 	 */
 	List<Item> find(String name) throws SQLException;
 
@@ -69,21 +68,22 @@ public interface IItemDao {
 	Item find(int itemId) throws SQLException;
 
 	/**
-	 * 添加商品
+	 * 向item表插入数据
 	 * 
 	 * @param item
+	 * @throws SQLException
 	 */
 	void insert(Item item) throws SQLException;
 
 	/**
-	 * 修改商品信息
+	 * 修改item表数据
 	 * 
 	 * @param item
 	 */
 	void update(Item item) throws SQLException;
 
 	/**
-	 * 删除商品,只能通过商品id
+	 * 删除item表的数据，通过itemID主键来定位
 	 * 
 	 * @param account
 	 */

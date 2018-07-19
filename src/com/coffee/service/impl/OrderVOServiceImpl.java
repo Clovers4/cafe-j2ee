@@ -14,6 +14,12 @@ import com.coffee.domain.OrderVO;
 import com.coffee.domain.Page;
 import com.coffee.service.IOrderVOService;
 
+/**
+ * @InterfaceName: OrderVOServiceImpl
+ * @Description:Service层,IOrderVOService的实现类，提供获取OrderVO的分页对象，以在前端显示
+ * 
+ * @author: K
+ */
 public class OrderVOServiceImpl implements IOrderVOService {
 	private IOrderVODao orderVODao = new OrderVODaoImpl();
 	private IOrderDetailVODao orderDetailVODao = new OrderDetailVODaoImpl();

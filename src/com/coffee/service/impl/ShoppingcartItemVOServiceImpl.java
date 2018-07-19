@@ -11,7 +11,7 @@ import com.coffee.service.IShoppingcartItemVOService;
 
 /**
  * @InterfaceName: ShoppingcartItemVOServiceImpl
- * @Description:Service层,IShoppingcartItemVOService的实现类，提供添加商品，修改，删除等服务。
+ * @Description:Service层,IShoppingcartItemVOService的实现类，提供获取某个用户购物车中的商品及其详细信息,获取单个对象或者List
  * 
  * @author: K
  */

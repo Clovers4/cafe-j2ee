@@ -1,10 +1,6 @@
 /**
- * 存放  访问数据库的操作  接口类
+ * @Description:DAO层接口，提供基本的CRUD（增删改）功能。
  * 
- * Dao层
- */
-/**
  * @author K
- *
  */
 package com.coffee.dao;

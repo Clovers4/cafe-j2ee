@@ -91,6 +91,7 @@ public class OrderDaoImpl implements IOrderDao {
 		
 		sql="select max(order_id) from `order`";
 
+		//这里需要使用ScalarHandler才能正确读取，直接使用BeanHandler无法转化成Integer，可能原因是Integer没有实现setter方法
 		return (Integer) runner.query(ConnectionContext.getInstance().getConnection(), sql,
 				 new ScalarHandler<Integer>());
 	}
