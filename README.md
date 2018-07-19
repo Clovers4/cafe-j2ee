@@ -20,6 +20,16 @@
     2. 登录（会话）维持————session/cookies
     3. 分页显示————PageModel/mysql查
 
+### 实现图
+  ![主页](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/index.jpg)
+  ![登录](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/login.jpg)
+  ![注册](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/register.jpg)
+  ![修改个人信息](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/user-modify-info.jpg)
+  ![搜索餐点](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/search.jpg)
+  ![购物车](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/shoppingcart.jpg)
+  ![历史订单查看详情](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/user-history-order-details.jpg)
+  ![购买餐点](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/item-logined.jpg)
+  ![查看餐点热度](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/items-heat.jpg)
 
 
 ### 1. 准备工作  
