@@ -7,7 +7,16 @@
 <title>register</title>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<link
+	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/CAPTCHA.css">
 <script
@@ -59,7 +68,8 @@
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-lock"></span></span> <input
 									id="register-password" name="password" class="form-control"
-									placeholder="请输入密码" maxlength="20" type="password">
+									placeholder="请输入密码，明文存储，请勿输入常用密码" maxlength="20"
+									type="password">
 							</div>
 
 							<span style="color: red; display: none;" class="tips"></span> <span

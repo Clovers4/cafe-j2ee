@@ -102,18 +102,22 @@
 					<!-- 详情表格 -->
 					<table class="table table-striped" style="text-align: center">
 						<tr>
+							<td>排名</td>
 							<td>名称</td>
 							<td>类型</td>
 							<td>点餐率</td>
 						</tr>
-						<c:forEach var="item" items="${items}" begin="0" end="3">
+						<c:forEach var="item" items="${items}" begin="0" end="3"
+							varStatus="status">
 							<tr>
+								<td>第${ status.index + 1}名</td>
 								<td>${item.name}</td>
 								<td>${item.type}</td>
 								<td>${item.percent}</td>
 							</tr>
 						</c:forEach>
 						<tr>
+							<td>...</td>
 							<td>其他餐点</td>
 							<td></td>
 							<td>${1-items[0].percent-items[1].percent-items[2].percent-items[3].percent-items[4].percent}</td>
