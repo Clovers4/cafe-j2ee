@@ -18,7 +18,7 @@
 ### 难点：
     1. 环境配置（Tomcat与JDK的版本使用问题，DBCP/C3P0数据库连接池的配置问题）
     2. 登录（会话）维持————session/cookies
-    3. 分页显示————PageModel/mysql查
+    3. 分页显示————PageModel/jdbc-mysql查
 
 ### 实现图
   ![主页](https://github.com/Clovers4/coffee-javaweb/blob/master/resouce/sample/index.jpg)
@@ -75,10 +75,11 @@
 
 ### 不足与进阶
 ####  不足
-  1. 命名与注释写到后面越来越不足，需要改善
-  2. Service层与Servlet层（Controller）的各个方法职责没有很好地做到单一性。
-  3. 复杂度较高，根据Eclipse搜索"\n"的结果来看，除去引入的css/js文件，代码量似乎达到了1W行。
-  4. 前后端耦合度较高，复用性太低。
+  1. 命名与注释到后期略显不足，需要改善
+  2. Service层与Controller层的设计有问题，方法和职责的分配都有点问题。
+  3. 复杂度太高，且有大量冗余代码（如：日志等）根据Eclipse搜索"\n"的结果来看，除去引入的css/js文件，代码量似乎达到了1W行。
+  4. 前后端耦合度太高，复用性太低。
+  5. VO与entity层是不同的，此处本来应该用DTO来做。
 #### 进阶
   1. 补充/系统地学习一遍html/css/js。可以考虑使用Vue.js对前端代码进行优化。
   2. 可以考虑使用Spring的AOP特性来对硬编码的日志记录代码进行优化。
